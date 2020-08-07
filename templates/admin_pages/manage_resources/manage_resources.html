@@ -1,0 +1,221 @@
+{% extends "../admin_pages_base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-center" style="padding: 1%;">
+        <a href="{% url 'admin_pages:admin_index' %}">
+            <button class="btn btn-outline-warning">&#60; Back to Menu</button>
+        </a>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="left-container">
+            <h1 class="title">Sermons</h1>
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'admin_pages:new_speaker' %}">
+                    <button class="btn btn-primary">Add Speaker</button>
+                </a>
+                <a class="space-left-sm" href="{% url 'admin_pages:manage_sermons_header' %}">
+                    <button class="btn btn-secondary">Edit Header</button>
+                </a>
+            </div>
+
+            <div class="d-flex justify-content-center pad-container">
+                <div class="col-12">
+                    {% for speaker in speakers %}
+                    <div class="collapse-container" style="text-align: right;">
+                        <span class="space-left-sm">{{ speaker.name }}</span>
+                        <span class="space-left">
+                            <a href="{% url 'admin_pages:edit_speaker' speaker.id %}">Edit</a>
+                        </span>
+                        | <a href="{% url 'admin_pages:confirm_delete_speaker' speaker.id %}"
+                            style="color: red;">Delete</a>
+                    </div>
+                    <div class="expand-content text-center">
+                        <p style="margin-top: 1%;">
+                            <a href="{% url 'admin_pages:new_sermon' speaker.id %}"
+                                style="color: green;">
+                                New Sermon
+                            </a>
+                        </p>
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            {% for sermon in sermons %}
+                            {% if sermon.speaker.id == speaker.id %}
+                            <tr>
+                                <td class="space-left-sm">{{ sermon.title }}</td>
+                                <td>{{ sermon.date|date:"Y, m/d" }}</td>
+                                <td>
+                                    <a href="{% url 'admin_pages:edit_sermon' sermon.id %}">Edit</a> |
+                                    <a href="{% url 'admin_pages:delete_sermon' sermon.id %}" style="color: red;">Delete</a>
+                                </td>
+                            </tr>
+                            {%endif%}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% empty %}
+                        <div class="d-flex justify-content-center">
+                        <span class="display-if-null">
+                            No Speakers have been added yet.
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="right-container">
+            <h1 class="title">Worship Music</h1>
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'admin_pages:new_artist' %}">
+                    <button class="btn btn-primary">Add Artist</button>
+                </a>
+                <a class="space-left-sm" href="{% url 'admin_pages:manage_worship_music_header' %}">
+                    <button class="btn btn-secondary">Edit Header</button>
+                </a>
+            </div>
+
+            <div class="d-flex justify-content-center pad-container">
+                <div class="col-12">
+                    {% for artist in artists %}
+                    <div class="collapse-container" style="text-align: right;">
+                        <span class="space-left-sm">{{ artist.name }}</span>
+                        <span class="space-left">
+                            <a href="{% url 'admin_pages:edit_artist' artist.id %}">Edit</a> |
+                        </span>
+                        <a href="{% url 'admin_pages:confirm_delete_artist' artist.id %}"
+                            style="color: red;">Delete</a>
+                    </div>
+                    <div class="expand-content text-center">
+                        <p style="margin-top: 1%;">
+                            <a href="{% url 'admin_pages:new_song' artist.id %}" 
+                                style="color: green;">
+                                New Song
+                            </a>
+                        </p>
+                        <table style="width: 100%">
+                            <tr>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            {% for song in songs %}
+                            {% if song.artist.id == artist.id %}
+                            <tr>
+                                <td class="space-left-sm">{{ song.title }}</td>
+                                <td>{{ song.date|date:"Y, m/d" }}</td>
+                                <td>
+                                    <a href="{% url 'admin_pages:edit_song' song.id %}">Edit</a> |
+                                    <a href="{% url 'admin_pages:delete_song' song.id %}" style="color: red;">Delete</a>
+                                </td>
+                            </tr>
+                            {%endif%}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% empty %}
+                    <div class="d-flex justify-content-center">
+                        <span class="display-if-null">
+                            No Artists have been added yet.
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="justify-content-center" 
+        style="background-color: rgba(234, 234, 234, 0.5);
+        border-radius: 5px; border: 2px solid rgba(234, 234, 234, 0.7);
+        padding-top: 1%; margin-left: .6%; margin-right: .6%;">
+        <h2 class="text-center" style="font-weight: 300;">
+            Worship Videos
+        </h2>
+        <div class="d-flex justify-content-center pad-container">
+            <a href="{% url 'admin_pages:new_speaker' %}">
+                <button class="btn btn-primary">
+                    Add Speaker
+                </button>
+            </a>
+            <a class="space-left-sm" href="{% url 'admin_pages:manage_worship_videos_header' %}">
+                <button class="btn btn-secondary">
+                    Edit Header
+                </button>
+            </a>
+        </div>
+        <div class="container justify-content-center" 
+            style="margin-top: -1.5%; padding-left: 10%; padding-right: 10%;">
+            {% for speaker in speakers %}
+            <div class="collapse-container" style="display: block;">
+                <span class="space-left-sm">{{ speaker.name }}</span>
+                <div style="text-align: center;"
+                    <span class="space-left">
+                        <a href="{% url 'admin_pages:edit_speaker' speaker.id %}">Edit</a> | 
+                    </span>
+                    <a href="{% url 'admin_pages:confirm_delete_speaker' speaker.id %}"
+                        style="color: red;">Delete</a>
+                </div>
+            </div>
+            <div class="expand-content text-center">
+                <p style="margin-top: 1%;">
+                    <a href="{% url 'admin_pages:new_worship_video' speaker.id %}" 
+                        style="color: green;">
+                        New Video
+                    </a>
+                </p>
+                <table style="width: 100%">
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for video in worship_videos %}
+                    {% if video.speaker.id == speaker.id %}
+                    <tr>
+                        <td class="space-left-sm">{{ video.title }}</td>
+                        <td>{{ video.date|date:"Y, m/d" }}</td>
+                        <td>
+                            <a href="{% url 'admin_pages:edit_worship_video' video.id %}">Edit</a> |
+                            <a href="{% url 'admin_pages:delete_worship_video' video.id %}"
+                                style="color: red;">Delete</a>
+                        </td>
+                    </tr>
+                    {%endif%}
+                    {% endfor %}
+                </table>
+            </div>
+            {% empty %}
+            <div class="d-flex justify-content-center">
+                <span class="display-if-null">
+                    No Speakers have been added yet.
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+    </div>
+
+    <script>
+        var collapse = document.getElementsByClassName("collapse-container");
+
+        for (let i = 0; i < collapse.length; i++) {
+            collapse[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                }
+                else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+
+{% endblock content %}

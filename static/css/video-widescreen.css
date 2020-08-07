@@ -1,0 +1,96 @@
+section {
+    float: left;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    margin-top: 2%;
+    width: 55%;
+    padding: 2em;
+    border-radius: 5px;
+    background-color: rgba(234, 234, 234, 0.5);
+    border: 2px solid rgba(234, 234, 234, 0.7);
+    border-radius: 5px;
+}
+
+aside {
+    width: 45%;
+    height: 100%;
+    border-radius: 5px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.video-main-container {
+    background-color: white;
+    word-wrap: break-word;
+    padding: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.expandable-vid {
+    cursor: pointer;
+}
+
+.video-title-lg {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 160%;
+}
+
+.video-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 150%;
+    padding-right: 1%;
+}
+
+.video-date-visible {
+    font-size: 17px;
+    font-weight: 200;
+    padding-right: .5%;
+}
+
+.video-name {
+    font-size: 17px;
+    font-weight: 200;
+    padding-left: .3%;
+}
+
+.iframe-sm {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+@media only screen
+and (max-width: 1200px) {
+    .iframe-lg {
+        width: 30em;
+        height: 30em;
+    }
+
+    .video-description-lg {
+        margin-top: -35%;
+    }
+}
+
+@media only screen
+and (max-width: 1035px) {
+    .iframe-lg {
+        width: 25em;
+        height: 25em;
+    }
+}
+
+@media only screen
+and (max-width: 890px) {
+    .iframe-lg {
+        width: 20em;
+        height: 20em;
+    }
+}
+
+iframe {
+    border-radius: 5px;
+}

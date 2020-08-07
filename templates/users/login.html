@@ -1,0 +1,38 @@
+{% extends './users_base.html' %}
+
+{% block content %}
+
+<style>
+	ul { list-style: none; }
+	li { color: red; }
+</style>
+
+<div class="login-container">
+
+	<div class="title">
+		<h2>Sign in to continue</h2>
+	</div>
+
+    <form action="{% url 'users:login' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+		<div class="form-btn-container">
+			<span class="space-left-sm">
+				<button class="btn btn-primary" type="submit">
+					Log in
+				</button>
+			</span>
+			<span class="space-left">
+                <button class="btn btn-danger" onclick="javascript:history.back();">
+				    Cancel
+			    </button>
+            </span>
+		</div>
+
+        <input type="hidden" name="next"
+            value="{% url 'admin_pages:admin_index' %}" />
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "./site_pages_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if music_header.show_header_image %}
+<div class="header-image"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ header_image }}');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">Worship Music</h1>
+        {% if music_header.header_text != '' %}
+        <h4 class="header-text justify-content-center text-light">
+            {{ music_header.header_text }}
+        </h4>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<h1 class="text-dark text-center">Worship Music</h1>
+{% endif %}
+
+<div id="audio-list" class="audio-list-container shadow">
+    <input type="text" class="search" placeholder="Search by name or artist">
+    <button class="sort btn btn-outline-primary" data-sort="artist-name"> List by artist A-Z </button>
+    <button class="sort btn btn-outline-primary" data-sort="audio-title">&emsp;List by title A-Z&emsp;</button>
+    <button class="sort btn btn-outline-primary" data-sort="audio-date">List by oldest/newest</button>
+    <ul class="list">
+        <br>
+        {% for song in songs %}
+        <li>
+            <span class="audio-title space-right">{{ song.title }}</span><br>
+            <span class="audio-date" style="display: none;">{{ song.date | date:"Y/m/d" }}</span>
+            <span class="audio-date-visible">{{ song.date }}</span>&ensp;|&ensp;
+            <span class="artist-name">{{ song.artist.name }}</span>
+            <br>
+            <div class="audio-container">
+                <audio controls alt="Audio player">
+                    <source src="{% static 'site_pages/resources/worship_music/audio/' %}{{ song.file_name }}">
+                </audio>
+                <a href="{% static 'site_pages/resources/worship_music/audio/' %}{{ song.file_name }}" type="audio/mpeg"
+                    download>
+                    <svg class="download-icon bi bi-arrow-down-square-fill" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" alt="Download icon">
+                        <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z"/>
+                    </svg>
+                </a>
+            </div>
+            <hr>
+        </li>
+        {% empty %}
+        <p class="text-center" style="margin-top: 1%;">No songs have been uploaded.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

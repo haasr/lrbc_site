@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <style>
+            body {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/404.jpg");
+		background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+	    a {
+		color: white;
+	    }
+        </style>
+    </head>
+    <body>
+        <div class="text-center">
+            <h1 class="text-light" style="padding: 4%;">Like Jesus' tomb on the third day, this page is empty.</h1>
+            <a href="{% url 'index' %}">
+                <button class="btn btn-primary" style="font-size: 2em;">
+                    Looking for this page?
+                </button>
+            </a>
+            <div style="padding-top: 5%;">
+                <a href='https://www.freepik.com/free-photos-vectors/business'>
+                    Business vector created by pikisuperstar - www.freepik.com
+                </a>
+            </div>
+        </div>
+    </body>
+
+</html>

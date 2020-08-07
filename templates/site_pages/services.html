@@ -1,0 +1,145 @@
+{% extends "./site_pages_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if services.show_header_image %}
+<div class="header-image"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ header_image }}');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">Services</h1>
+    </div>
+</div>
+{% else %}
+<h1 class="text-dark text-center">Services</h1>
+{% endif %}
+
+{% if services.box3_content_text and services.show_prayer_form %}
+<h4>True</h4>
+{% endif %}
+
+<div style="background-color: rgba(234, 234, 234, 0.7);">
+    {% if services.box1_content_text and services.box2_content_text %}
+    <div class="row" style="margin-left: 0.5%;">
+        <div class="left-container default-text">
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <h2 class="text-dark">{{ services.box1_header_text }}</h2>
+            </div>
+            <p>
+                {% if services.box1_img_file_name %}
+                <img class="gallery-img" src="{% static 'site_pages/services/box1_image/' %}{{ services.box1_img_file_name }}"
+                    alt="{{ services.box1_img_alt }}"
+                    style="{{ services.box1_img_size }} {{ services.box1_img_position }} margin: 1%;"><br>
+                {% endif %}
+                {{ services.box1_content_text | safe | linebreaksbr }}
+            </p>
+            {% if services.box1_link %}
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <a href="{{ services.box1_link }}">
+                    <button class="btn btn-outline-secondary">{{ services.box1_link_desc }}</button>
+                </a>
+            </div>
+            <br>
+            {% endif %}
+        </div>
+        <div class="right-container default-text">
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <h2 class="text-dark">{{ services.box2_header_text }}</h2>
+            </div>
+            <p>
+                {% if services.box1_img_file_name %}
+                <img class="gallery-img" src="{% static 'site_pages/services/box2_image/' %}{{ services.box2_img_file_name }}"
+                    alt="{{ services.box2_img_alt }}"
+                    style="{{ services.box2_img_size }} {{ services.box2_img_position }} margin: 1%;"><br>
+                {% endif %}
+                {{ services.box2_content_text | safe | linebreaksbr }}
+            </p>
+            {% if services.box2_link %}
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <a href="{{ services.box2_link }}">
+                    <button class="btn btn-outline-secondary">{{ services.box2_link_desc }}</button>
+                </a>
+            </div>
+            <br>
+        {% endif %}
+        </div>
+    </div>
+    {% elif services.box1_content_text %}
+    <div class="content-container-sm">
+        <div class="d-flex justify-content-center" style="margin: 1%;">
+            <h2 class="text-dark">{{ services.box1_header_text }}</h2>
+        </div>
+        <p>
+            {% if services.box1_img_file_name %}
+            <img class="gallery-img" src="{% static 'site_pages/services/box1_image/' %}{{ services.box1_img_file_name }}"
+                alt="{{ services.box1_img_alt }}"
+                style="{{ services.box1_img_size }} {{ services.box1_img_position }} margin: 1%;"><br>
+            {% endif %}
+            {{ services.box1_content_text | safe | linebreaksbr }}
+        </p>
+        {% if services.box1_link %}
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <a href="{{ services.box1_link }}">
+                    <button class="btn btn-outline-secondary">{{ services.box1_link_desc }}</button>
+                </a>
+            </div>
+            <br>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if services.box3_content_text and services.show_prayer_form %}
+    <div class="row" style="margin-left: 0.5%;">
+        <div class="left-container default-text">
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <h2 class="text-dark">{{ services.box3_header_text }}</h2>
+            </div>
+            <p>
+                {% if services.box3_img_file_name %}
+                <img class="gallery-img" src="{% static 'site_pages/services/box3_image/' %}{{ services.box3_img_file_name }}"
+                    alt="{{ services.box3_img_alt }}"
+                    style="{{ services.box3_img_size }} {{ services.box3_img_position }} margin: 1%;"><br>
+                {% endif %}
+                {{ services.box3_content_text | safe | linebreaksbr }}
+            </p>
+            {% if services.box3_link %}
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <a href="{{ services.box3_link }}">
+                    <button class="btn btn-outline-secondary">{{ services.box3_link_desc }}</button>
+                </a>
+            </div>
+            <br>
+            {% endif %}
+        </div>
+        <div class="right-container default-text">
+            <div class="d-flex justify-content-center">
+                <h2 class="text-dark">Prayer Request</h2>
+            </div>
+            <div class="form-container">
+                {% csrf_token %}
+                {{ prayer_request_form.as_p }}
+                <button class="btn btn-outline-secondary"
+                    onclick="submitPrayerReqForm('{{ csrf_token }}')">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+    {% elif services.show_prayer_form %}
+    <div class="content-container-sm">
+        <div class="d-flex justify-content-center">
+            <h2 class="text-dark">Prayer Request</h2>
+        </div>
+        <div class="form-container">
+            {% csrf_token %}
+            {{ prayer_request_form.as_p }}
+            <button class="btn btn-outline-secondary"
+                onclick="submitPrayerReqForm('{{ csrf_token }}')">
+                Submit
+            </button>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

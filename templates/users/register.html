@@ -1,0 +1,28 @@
+
+{% extends './users_base.html' %}
+
+{% block content %}
+
+<style>
+	ul { list-style: none; }
+	li { color: red; }
+</style>
+<div class="d-flex justify-content-center" style="padding-top: 1%;">
+    <a href="{% url 'admin_pages:manage_users' %}">
+        <button class="btn btn-outline-warning">&#60; Back to Menu</button>
+    </a>
+</div>
+<div class="login-container shadow">
+    <h2 class="text-center" style="margin-bottom: 4%;">
+        Create Acccount
+    </h2>
+    <form method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" name="submit">Register</button>
+        <input type="hidden" name="next" value="{% url 'admin_pages:admin_index' %}">
+    </form>
+</div>
+<br>
+
+{% endblock content %}

@@ -1,0 +1,145 @@
+{% extends "./site_pages_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if contact.show_header_image %}
+<div class="header-image"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ header_image }}');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">Contact</h1>
+    </div>
+</div>
+{% else %}
+<h1 class="text-dark text-center">Contact</h1>
+{% endif %}
+
+<div style="background-color: rgba(234, 234, 234, 0.7);">
+    {% if contact.show_contact_form  %}
+    <div class="row" style="margin-left: 8%; margin-right: 8%;">
+        <div class="left-container default-text">
+            {% if contact.phone_fax_header_text != '' %}
+                <h2 class="text-dark" style="margin: 8%;">
+                    {{ contact.phone_fax_header_text }}
+                </h2>
+
+                {% if contact.contact_phone != '' %}
+                <a href="tel:{{ contact.contact_phone }}" target="_blank" class="fa footer-fa fa-phone" alt="Phone icon"><span class="contact-number space-left-sm">{{ contact.contact_phone }}</span></a>
+                <br>
+                {% endif %}
+
+                {% if contact.contact_fax != '' %}
+                <i class="fa fa-print" alt="Fax icon"><span class="contact-number space-left-sm">{{ contact.contact_fax }}</i>
+                {% endif %}
+                <br>
+            {% endif %}
+
+            {% if contact.addr_mail_header_text %}
+                <h2 class="text-dark" style="margin: 8%;">
+                    {{ contact.addr_mail_header_text }}
+                </h2>
+
+                {% if contact.contact_address != '' %}
+                    <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
+                {% endif %}
+
+                {% if contact.contact_mailbox != '' %}
+                    <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="right-container default-text">
+            <br>
+            <div class="d-flex justify-content-center">
+                <h4 class="text-dark" style="font-weight: bold;">
+                    Interested in learning more? Leave us your email.
+                </h4>
+            </div>
+            <div class="form-container">
+                {% csrf_token %}
+                {{ viewer_contact_form.as_p }}
+                <button class="btn btn-outline-secondary"
+                    onclick="submitContactForm('{{ csrf_token }}')">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+        {% if contact.phone_fax_header_text != '' and contact.addr_mail_header_text != '' %}
+            <div class="row">
+                <div class="left-container default-text">
+                {% if contact.phone_fax_header_text != '' %}
+                    <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                        <h2 class="text-dark">{{ contact.phone_fax_header_text }}</h2>
+                    </div>
+                    <div class="content-container">
+                        {% if contact.contact_phone != '' %}
+                        <a href="tel:{{ contact.contact_phone }}" target="_blank" class="fa footer-fa fa-phone" alt="Phone icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_phone }}</span></a>
+                        <br>
+                        {% endif %}
+
+                        {% if contact.contact_fax != '' %}
+                        <i class="fa fa-print" alt="Fax icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_fax }}</i>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                </div>
+                <div class="right-container default-text">
+                {% if contact.addr_mail_header_text %}
+                    <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                        <h2 class="text-dark">{{ contact.addr_mail_header_text }}</h2>
+                    </div>
+                    <div class="content-container">
+                        {% if contact.contact_address != '' %}
+                            <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
+                        {% endif %}
+
+                        {% if contact.contact_mailbox != '' %}
+                            <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+
+        {% else %}
+            {% if contact.phone_fax_header_text != '' %}
+            <div class="d-flex justify-content-center">
+                <h2 class="text-dark" style="margin-top: 1%;">{{ contact.phone_fax_header_text }}</h2>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="content-container">
+                    {% if contact.contact_phone != '' %}
+                    <a href="tel:{{ contact.contact_phone }}" target="_blank" class="fa footer-fa fa-phone" alt="Phone icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_phone }}</span></a>
+                    <br>
+                    {% endif %}
+
+                    {% if contact.contact_fax != '' %}
+                    <i class="fa fa-print" alt="Fax icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_fax }}</i>
+                    {% endif %}
+                </div>
+            </div>
+            {% elif contact.addr_mail_header_text != '' %}
+            <div class="d-flex justify-content-center">
+                <h2 class="text-dark" style="margin-top: 1%;">{{ contact.addr_mail_header_text }}</h2>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="content-container">
+                    {% if contact.contact_address != '' %}
+                        <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
+                    {% endif %}
+
+                    {% if contact.contact_mailbox != '' %}
+                        <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock content %}

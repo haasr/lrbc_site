@@ -1,0 +1,90 @@
+{% extends "../admin_pages_base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="padding: 1%;">
+    <a href="{% url 'admin_pages:admin_index' %}">
+        <button class="btn btn-outline-warning">&#60; Back to Menu</button>
+    </a>
+</div>
+
+<div class="container" style="background-color: #A1A8AD; border-radius: 10px;">
+    <h2 class="text-center" style="padding-top: 1%;">Manage Accounts</h2>
+    <p style="padding-left: 15%; padding-right: 15%;">
+        All user accounts have access to edit the website
+        through <a href="https://www.lrbclife.org/admin_pages">lrbclife.org/users/login</a>.
+        If a user account is no longer associated with the Church, it
+        should be deleted.
+    </p>
+
+    <div class="center-table pad-container hide-when-small shadow">
+        <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+            <a href="{% url 'users:register' %}">
+                <button class="btn btn-primary">Add Account</button>
+            </a>
+        </div>
+        <table class="shadow"
+            style="width: 100%; background-color: white; border-radius: 5px;">
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Date Joined</th>
+                <th>Delete</th>
+            </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.first_name }}  {{ user.last_name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined }}</td>
+                <td>
+                    <a href="{% url 'users:confirm_delete_user' user.id %}" 
+                        style="color: red;">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="show-when-small container">
+    {% for user in users %}
+        <div class="collapse-container">
+            {{ user.first_name }} {{ user.last_name }}
+            <span class="space-left">
+                <a href="{% url 'users:confirm_delete_user' user.id %}" 
+                    style="color: red;">
+                    Delete
+                </a>
+            </span>
+        </div>
+        <div class="expand-content text-center">
+            <p>Username: {{ user.username }}</p>
+            <p>Email:    {{ user.email }}</p>
+            <span class="space-left-sm">Date joined: {{ user.date_joined }}</span>
+        </div>
+    {% endfor %}
+    <br>
+</div>
+
+<script>
+var collapse = document.getElementsByClassName("collapse-container");
+
+for (let i = 0; i < collapse.length; i++) {
+    collapse[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        }
+        else {
+            content.style.display = "block";
+        }
+    });
+}
+</script>
+
+{% endblock content %}

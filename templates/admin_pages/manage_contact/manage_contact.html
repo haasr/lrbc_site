@@ -1,0 +1,33 @@
+{% extends "../admin_pages_base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="padding: 1%;">
+	<a href="{% url 'admin_pages:admin_index' %}">
+		<button class="btn btn-outline-warning">&#60; Back to Menu</button>
+	</a>
+</div>
+
+<div class="form-container">
+	<div class="text-center title-container"><h2>Manage Contact Page</h2></div>
+	<form method='post' enctype='multipart/form-data'>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="form-btn-container">
+			<span class="space-left">
+				<button class="btn btn-primary" type="submit">
+					Save
+				</button>
+			</span>
+			<span class="space-left">
+				<a href="{% url 'admin_pages:admin_index' %}">
+					<button class="btn btn-danger">
+						Cancel
+					</button>
+				</a>
+			</span>
+		</div>
+	</form>
+</div>
+<br>
+{% endblock content %}

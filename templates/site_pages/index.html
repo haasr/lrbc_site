@@ -1,0 +1,120 @@
+{% extends "./site_pages_base.html" %}
+
+{% block content %}
+
+{% if home.alert_banner != '' %}
+<div class="container shadow" style="border-radius: 5px;">
+    <p>{{ home.alert_banner | safe | linebreaksbr }}</p>
+</div>
+{% endif %}
+
+<div class="hero-image">
+    <div class="hero-container">
+
+        {% if home.tagline != '' %}
+        <h2>{{ home.tagline }}</h2>
+        {% endif %}
+
+        <div class="pad-container home-btn-links">
+            {% if home.about_label != '' %}
+            <a href="{% url 'about' %}">
+                <button class="btn btn-outline-light">
+                    {{ home.about_label }}
+                </button>
+            </a>
+            {% endif %}
+            {% if home.live_link != '' %}
+            <span class="space-left-sm">
+                <a href="{{ home.live_link }}" target="_blank">
+                    <button class="btn btn-outline-light">
+                        &ensp;Watch Live&ensp;
+                    </button>
+                </a>
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="text-center pad-container">
+
+        {% if home.email_addr != '' %}
+            <a href="mailto:{{ home.email_addr }}" target="_blank" class="hero-fa fa fa-envelope" alt="Mail link icon"></a>
+        {% endif %}
+        {% if home.facebook_link != '' %}
+            <a href="{{ home.facebook_link }}" target="_blank" class="hero-fa fa fa-facebook" alt="Facebook link icon"></a>
+        {% endif %}
+        {% if home.twitter_link != '' %}
+            <a href="{{ home.twitter_link }}" target="_blank" class="hero-fa fa fa-twitter" alt="Twitter link icon"></a>
+        {% endif %}
+        {% if home.instagram_link != '' %}
+            <a href="{{ home.instagram_link }}" target="_blank" class="hero-fa fa fa-instagram" alt="Instagram link icon"></a>
+        {% endif %}
+        {% if home.youtube_link != '' %}
+            <a href="{{ home.youtube_link }}" target="_blank" class="hero-fa fa fa-youtube" alt="YouTube link icon"></a>
+        {% endif %}
+
+        </div>
+
+        <a class="ct-btn-scroll ct-jst-btn-scroll text-center pad-container"
+            href="#gallery-img-container">
+            {% load static %}
+            <img src="{% static 'site_pages/home/arrow-down.png' %}" alt="Down arrow icon">
+        </a>
+    </div>
+</div>
+
+{% if display_gallery %}
+<div class="gallery-img-container" id="gallery-img-container"
+style="margin-bottom: -5%;">
+    {% for f in gallery_files %}
+    <div class="gallery-img-column">
+        {% load static %}
+            <img class="gallery-img shadow" src="{% static 'site_pages/home/gallery_images/' %}{{ f }}"
+                alt="Gallery Image" width="7%" height="7%" onclick="expandImg(this)">
+    </div>
+    {% endfor %}
+
+    <div class="gallery-img-enlarge-container">
+        <img class="shadow" id="gallery-img-expanded" style="opacity: 1; border-radius: 10px; width: 50%; height: 50%;">
+    </div>
+</div>
+
+{% if home.static_gallery %}
+<script>
+    $(document).ready(function() {
+        let i = 0;
+        var galleryImgs = document.getElementsByClassName('gallery-img');
+
+        galleryImgs[0].click()
+    });
+</script>
+{% else %}
+<script>
+    $(document).ready(function() {
+        let i = 0;
+        var galleryImgs = document.getElementsByClassName('gallery-img');
+
+        galleryImgs[(galleryImgs.length - 1)].click()
+        setInterval(
+            function clickImages() {
+                if ( i===galleryImgs.length ) {
+                    i = 0;
+                }
+                galleryImgs[i].click();
+                i++;
+            },
+            3500
+        );
+    });
+</script>
+{% endif %}
+
+<script>
+    function expandImg(img) {
+        var expandImg = document.getElementById('gallery-img-expanded');
+        expandImg.src = img.src;
+        expandImg.parentElement.style.display = 'block';
+    }
+</script>
+{% endif %}
+
+{% endblock content %}

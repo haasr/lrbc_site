@@ -1,0 +1,28 @@
+{% extends "../../admin_pages_base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+	<div class="text-center"><h2>Delete Speaker</h2></div>
+	<p>
+		Deleting speaker {{ speaker.name }} will delete all of
+		{{ speaker.name }}'s sermons and worship videos! Are you
+		sure you wish to delete this speaker?
+	</p>
+	<div class="form-btn-container">
+		<span class="space-left">
+			<button class="btn btn-primary" onclick="javascript:history.back();">
+				Cancel
+			</button>
+		</span>
+		<span class="space-left">
+			<a href="{% url 'admin_pages:delete_speaker' speaker.id %}">
+				<button class="btn btn-danger">
+					Delete
+				</button>
+			</a>
+		</span>
+	</div>
+</div>
+
+{% endblock content %}

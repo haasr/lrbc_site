@@ -1,0 +1,26 @@
+{% extends "./users_base.html" %}
+
+{% block content %}
+
+<div class="login-container">
+	<div class="text-center"><h2>Delete User</h2></div>
+	<p>
+		Deleting user {{ user.username }} cannot be undone.
+	</p>
+	<div class="form-btn-container">
+		<span class="space-left-sm">
+			<button class="btn btn-primary" onclick="javascript:history.back();">
+				Cancel
+			</button>
+		</span>
+		<span class="space-left">
+			<a href="{% url 'users:delete_user' user.id %}">
+				<button class="btn btn-danger">
+					Delete
+				</button>
+			</a>
+		</span>
+	</div>
+</div>
+
+{% endblock content %}

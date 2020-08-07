@@ -1,0 +1,119 @@
+{% extends "./site_pages_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if about.show_header_image %}
+<div class="header-image"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ header_image }}');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">About Us</h1>
+    </div>
+</div>
+{% else %}
+<h1 class="text-dark text-center">About Us</h1>
+{% endif %}
+
+<div style="background-color: rgba(234, 234, 234, 0.7);">
+    {% if about.box1_content_text != '' and about.box2_content_text != '' %}
+    <div class="row" style="margin-left: 0.5%;">
+        <div class="left-container default-text">
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <h2 class="text-dark">{{ about.box1_header_text }}</h2>
+            </div>
+            <p>
+                {% if about.box1_img_file_name %}
+                <img class="gallery-img" src="{% static 'site_pages/about/box1_image/' %}{{ about.box1_img_file_name }}"
+                    alt="{{ about.box1_img_alt }}"
+                    style="{{ about.box1_img_size }} {{ about.box1_img_position }} margin: 1%;"><br>
+                {% endif %}
+                {{ about.box1_content_text | safe | linebreaksbr }}
+            </p>
+        </div>
+        <div class="right-container default-text">
+            <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+                <h2 class="text-dark">{{ about.box2_header_text }}</h2>
+            </div>
+            <p>
+                {% if about.box2_img_file_name %}
+                <img class="gallery-img" src="{% static 'site_pages/about/box2_image/' %}{{ about.box2_img_file_name }}"
+                    alt="{{ about.box2_img_alt }}"
+                    style="{{ about.box2_img_size }} {{ about.box2_img_position }} margin: 1%;"><br>
+                {% endif %}
+                {{ about.box2_content_text | safe | linebreaksbr }}
+            </p>
+        </div>
+    </div>
+    {% elif about.box1_content_text != '' %}
+    <div class="center-container default-text">
+        <div class="d-flex justify-content-center" style="margin-bottom: 1%;">
+            <h2 class="text-dark">{{ about.box1_header_text }}</h2>
+        </div>
+        <p>
+            {% if about.box1_img_file_name %}
+            <img class="gallery-img" src="{% static 'site_pages/about/box1_image/' %}{{ about.box1_img_file_name }}"
+                alt="{{ about.box1_img_alt }}"
+                style="{{ about.box1_img_size }} {{ about.box1_img_position }} margin: 1%;"><br>
+            {% endif %}
+            {{ about.box1_content_text | safe | linebreaksbr }}
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+{% if display_gallery %}
+<div class="gallery-img-container" id="gallery-img-container"
+style="margin-bottom: -5%;">
+    {% for f in gallery_files %}
+    <div class="gallery-img-column">
+        {% load static %}
+            <img class="gallery-img shadow" src="{% static 'site_pages/home/gallery_images/' %}{{ f }}"
+                alt="Gallery Image" width="7%" height="7%" onclick="expandImg(this)">
+    </div>
+    {% endfor %}
+
+    <div class="gallery-img-enlarge-container">
+        <img class="shadow" id="gallery-img-expanded" style="opacity: 1; border-radius: 10px; width: 50%; height: 50%;">
+    </div>
+</div>
+
+{% if about.static_gallery %}
+<script>
+    $(document).ready(function() {
+        let i = 0;
+        var galleryImgs = document.getElementsByClassName('gallery-img');
+
+        galleryImgs[0].click()
+    });
+</script>
+{% else %}
+<script>
+    $(document).ready(function() {
+        let i = 0;
+        var galleryImgs = document.getElementsByClassName('gallery-img');
+
+        galleryImgs[(galleryImgs.length - 1)].click()
+        setInterval(
+            function clickImages() {
+                if ( i===galleryImgs.length ) {
+                    i = 0;
+                }
+                galleryImgs[i].click();
+                i++;
+            },
+            3500
+        );
+    });
+</script>
+{% endif %}
+
+<script>
+    function expandImg(img) {
+        var expandImg = document.getElementById('gallery-img-expanded');
+        expandImg.src = img.src;
+        expandImg.parentElement.style.display = 'block';
+    }
+</script>
+{% endif %}
+
+{% endblock content %}

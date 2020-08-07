@@ -1,0 +1,27 @@
+{% extends "../../admin_pages_base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+	<div class="text-center title-container"><h2>Add a new Song</h2></div>
+
+	<form action="{% url 'admin_pages:new_song' artist.id %}" method='post' enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<div class="form-btn-container">
+			<span class="space-left-sm">
+				<button class="btn btn-primary" type="submit">
+					Save
+				</button>
+			</span>
+			<span class="space-left">
+				<button class="btn btn-danger" onclick="javascript:history.back();">
+					Cancel
+				</button>
+			</span>
+		</div>
+	</form>
+</div>
+<br>
+
+{% endblock content %}

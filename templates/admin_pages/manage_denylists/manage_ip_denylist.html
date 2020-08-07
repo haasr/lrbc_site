@@ -1,0 +1,91 @@
+{% extends "../admin_pages_base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center" style="padding: 1%;">
+    <a href="{% url 'admin_pages:admin_index' %}">
+        <button class="btn btn-outline-warning">&#60; Back to Menu</button>
+    </a>
+</div>
+
+<div class="container" style="background-color: #A1A8AD; border-radius: 5px;">
+    <h2 class="text-center" style="padding-top: 1%;">No-Log IP List</h2>
+    <p style="padding-left: 15%; padding-right: 15%;">
+        If a page request is made from one of the IP addresses
+        on this list, the request will not be logged as a page
+        view and unique visits from the address will not be
+        logged.
+    </p>
+    <div class="center-table pad-container hide-when-small shadow">
+        <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+            <a href="{% url 'admin_pages:new_nolog_ip' %}">
+                <button class="btn btn-primary">Add IP Entry</button>
+            </a>
+        </div>
+        <table class="shadow" 
+            style="width: 100%; background-color: white; border-radius: 5px;"">
+            <tr>
+                <th>IP Address</th>
+                <th>Comment</th>
+                <th>Actions</th>
+            </tr>
+            {% for entry in nolog_ips %}
+            <tr>
+                <td class="space-left-sm">{{ entry.ip }}</td>
+                <td>{{ entry.comment }}</td>
+                <td>
+                    <a href="{% url 'admin_pages:edit_nolog_ip' entry.id %}">
+                        Edit
+                    </a> | 
+                    <a href="{% url 'admin_pages:delete_nolog_ip' entry.id %}"
+                        style="color: red;">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="show-when-small container">
+    {% for entry in nolog_ips %}
+        <div class="collapse-container">
+            {{ entry.ip }}
+            <span class="space-left">
+                <a href="{% url 'admin_pages:edit_nolog_ip' entry.id %}">
+                    Edit
+                </a> | 
+                <a href="{% url 'admin_pages:delete_nolog_ip' entry.id %}" 
+                    style="color: red;">
+                    Delete
+                </a>
+            </span>
+        </div>
+        <div class="expand-content text-center">
+            <p>IP Address: {{ entry.ip }}</p>
+
+            {% if entry.comment != '' %}
+            <p>Comment:    {{ entry.comment }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <br>
+</div>
+
+<script>
+    var collapse = document.getElementsByClassName("collapse-container");
+    
+    for (let i = 0; i < collapse.length; i++) {
+        collapse[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            }
+            else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+{% endblock content %}

@@ -1,0 +1,161 @@
+{% extends "./site_pages_base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if videos_header.show_header_image %}
+<div class="header-image"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ header_image }}');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">Worship Videos</h1>
+        {% if videos_header.header_text != '' %}
+        <h4 class="header-text justify-content-center text-light">
+            {{ videos_header.header_text }}
+        </h4>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<h1 class="text-dark text-center">Contact</h1>
+{% endif %}
+
+<p id="initial-vid-description" style="display: none;">{{ initial_video.description }}</p>
+
+
+<section class="shadow">
+    <!-- Main video will go here -->
+    <div class="video-main-container" id="expanded-vid-container">
+        <span class="video-title-lg">
+            {{ initial_video.title }}
+        </span><br>
+        <span>
+            {{ initial_video.date }}
+        </span>
+        <span class="speaker-name">
+            &ensp;|&ensp;{{ initial_video.speaker.name }}
+        </span>
+        <div id="expanded-vid" alt="Main video iframe"></div>
+        {% if initial_video.file_name %}
+        <a class="text-center" id="bulletin-{{ video.id }}" style="color: #484848;"
+            href="/static/site_pages/resources/worship_videos/bulletins/{{ initial_video.file_name }}" target="_blank">
+            <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-file-earmark-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M4 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.707A1 1 0 0 0 13.707 5L10 1.293A1 1 0 0 0 9.293 1H4zm5 1v3a1 1 0 0 0 1 1h3L9 2z"/>
+            </svg>
+            <span style="color: #3584E4;">Bulletin</span>
+        </a>
+        {% endif %}
+    </div>
+</section>
+
+<aside>
+    <div id="video-list" class="audio-list-container shadow">
+        <div class="text-center" style="line-height: 3em;">
+            <input type="text" class="search" placeholder="Search by speaker or title"><br>
+            <button class="sort btn btn-outline-primary" data-sort="speaker-name">List by speaker A-Z</button>
+            <button class="sort btn btn-outline-primary" data-sort="video-title">List by title A-Z</button>
+            <button class="sort btn btn-outline-primary" data-sort="video-date">List by oldest/newest</button>
+        </div>
+        <ul class="list">
+            {% for video in videos %}
+            <li>
+                <div class="text-center">
+                    <span class="video-title" id="video-title-{{ video.id }}">{{ video.title }}</span>
+                    <span class="video-date-visible" style="display: none;">{{ video.date | date:"Y/m/d" }}</span><br>
+                    <span id="video-date-{{ video.id }}">{{ video.date }}</span>&ensp; | &ensp;
+                    <span class="speaker-name" id="speaker-name-{{ video.id }}">{{ video.speaker.name }}</span>
+                    <div class="expandable-vid" onclick="expandVid(this, '{{ video.id }}');"
+                        alt="Video iframe">
+                        {{ video.iframe | safe}}
+                    </div>
+                </div>
+                <div class="video-description" id="video-description-{{ video.id }}">
+                    {{ video.description }}
+                </div>
+                {% if video.file_name %}
+                <br>
+                <a class="text-center" id="bulletin-{{ video.id }}" style="color: #484848;"
+                    href="/static/site_pages/resources/worship_videos/bulletins/{{ video.file_name }}" target="_blank">
+                    <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-file-earmark-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.707A1 1 0 0 0 13.707 5L10 1.293A1 1 0 0 0 9.293 1H4zm5 1v3a1 1 0 0 0 1 1h3L9 2z"/>
+                    </svg>
+                    <span style="color: #3584E4;">Bulletin</span>
+                </a>
+                {% endif %}
+            </li>
+            <hr>
+            {% empty %}
+            <p class="text-center" style="margin-top: 1%;">No videos have been uploaded.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>
+
+<script>
+    $(document).ready(function() {
+        videoMainContainer = document.getElementById('expanded-vid');
+        videoMainContainer.innerHTML += '{{ initial_iframe | safe }}';
+
+        let el = document.createElement('div');
+        el.setAttribute('class', 'video-description-lg');
+        
+        let desc = document.getElementById('initial-vid-description').innerHTML;
+        el.appendChild(document.createTextNode(desc));
+        videoMainContainer.appendChild(el);
+
+        //let bulletin = document.getElementById('initial-vid-bulletin').innerHTML;
+        //videoMainContainer.innerHTML += bulletin;
+    });
+    
+    function expandVid(video, videoId) {
+        let videoMainContainer = document.getElementById('expanded-vid-container');
+        videoMainContainer.innerHTML = '';
+
+        let title = document.getElementById('video-title-' + videoId).innerHTML;
+        let el = document.createElement('span');
+        el.setAttribute('class', 'video-title-lg');
+        el.appendChild(document.createTextNode(title));
+        videoMainContainer.appendChild(el);
+
+        videoMainContainer.appendChild(document.createElement('br')); // Insert line-break.
+
+        let date = document.getElementById('video-date-' + videoId).innerHTML;
+        el = document.createElement('span');
+        el.setAttribute('class', 'video-date');
+        el.appendChild(document.createTextNode(date));
+        videoMainContainer.appendChild(el);
+
+        let speaker = document.getElementById('speaker-name-' + videoId).innerHTML;
+        el = document.createElement('span');
+        el.setAttribute('class', 'speaker-name');
+        el.appendChild(document.createTextNode((' | ' + speaker)));
+        videoMainContainer.appendChild(el);
+
+        let newVid = video.cloneNode(true);
+        newVid.removeAttribute('id');
+        newVid.removeAttribute('onclick');
+        newVid.id = 'expanded-vid';
+        videoMainContainer.appendChild(newVid);
+        document.getElementsByClassName('iframe-sm')[0].removeAttribute('class');
+
+        let expVid = document.getElementById('expanded-vid')
+        expVid.getElementsByTagName('iframe')[0].setAttribute('class', 'iframe-lg');
+
+        let desc = document.getElementById('video-description-' + videoId).innerHTML;
+        el = document.createElement('div');
+        el.setAttribute('class', 'video-description-lg');
+        el.appendChild(document.createTextNode(desc));
+        videoMainContainer.appendChild(el);
+
+        try {
+            let bulletin = document.getElementById('bulletin-' + videoId).cloneNode(true);
+            console.log(bulletin);
+            videoMainContainer.appendChild(bulletin);
+            videoMainContainer.innerHTML += '';
+        }
+        catch(err) { 
+            console.log(err)
+        } 
+    }
+</script>
+
+{% endblock content %}
