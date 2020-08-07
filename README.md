@@ -112,8 +112,8 @@ I have left some example settings for Gmail using TLS. There are many good tutor
 for these settings such as (https://data-flair.training/blogs/django-send-email/).
 
 #### 2) Configure the email account that will receive the form data; it can be the same
-address if you want. To do this, navigate to 127.0.0.1:8000/admin_pages > Accounts
- > Email. Enter your recipient email address in the resulting form. You will need
+address if you want. To do this, navigate to 127.0.0.1:8000/admin_pages -> Accounts
+ -> Email. Enter your recipient email address in the resulting form. You will need
  to restart the Django app; you may press (Ctrl-c) to exit it and then re-enter the
  runserver command.
 
@@ -149,12 +149,12 @@ If you are administrating the website, you probably access the pages often. Whil
 is not going to inflate unique visits too badly (a *unique* visit means the server had
 to issue a new cookie; your browser will use the same cookie thereafter until it is
 closed), but you can easily inflate the page views since each page view is logged in
-the database (you can delete views and visits from the admin menu > "Views and SEO" >
+the database (you can delete views and visits from the admin menu -> "Views and SEO" ->
 "Pages Viewed" or "Unique Visits"; the hamburger menu on the top right of either
 of those pages will have options to clear these records.
 
 To prevent inflating the views, you can put your IPv4 address in the IP No-Log List.
-From the admin menu choose "Denylists" > "IP No-Log List". Anyone who is editing 
+From the admin menu choose "Denylists" -> "IP No-Log List". Anyone who is editing 
 the site frequently probably ought to put her or his IP address on thie list so
 the page view metrics are not inflated.
 
