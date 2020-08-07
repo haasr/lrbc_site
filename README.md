@@ -105,31 +105,31 @@ and last, you will see a checkbox for "Show Contact Form". You can enable these 
 but two things need to be done before the submitted form data will actually be sent
 somewhere:
 
-##### 1) Scroll to the bottom lrbc_site/lrbc_site/settings.py to find the email settings.
+#### 1) Scroll to the bottom lrbc_site/lrbc_site/settings.py to find the email settings.
 Configure the email settings with an email account which supports SMTP. These settings
 are neccessary because this is the email account you will use to send your form data.
 I have left some example settings for Gmail using TLS. There are many good tutorials
 for these settings such as (https://data-flair.training/blogs/django-send-email/).
 
-##### 2) Configure the email account that will receive the form data; it can be the same
-address if you want. To do this, navigate to 127.0.0.1:8000/admin_pages > Accounts
- > Email. Enter your recipient email address in the resulting form. You will need
+#### 2) Configure the email account that will receive the form data; it can be the same
+address if you want. To do this, navigate to 127.0.0.1:8000/admin_pages -> Accounts
+ -> Email. Enter your recipient email address in the resulting form. You will need
  to restart the Django app; you may press (Ctrl-c) to exit it and then re-enter the
  runserver command.
 
 
-### Notes for deploying
+## Notes for deploying
 
 If you would like to use this app for your church, that is why I have made it public
 so go for it. There are several things you should note.
 
-##### 1) Change the security key
+#### 1) Change the security key
 
 You will need to change the security key in lrbc_site/lrbc_site/settings.py since it
 is publically available; it just needs to be long and suffficiently random. There is
 even a website for generating these: (https://djecrety.ir/).
 
-##### 2) Add your hostname
+#### 2) Add your hostname
 
 You will need to add your hostname in the ALLOWED_HOSTS list in the settings. You may
 also need 0.0.0.0 as a host to initially test on a production server. It is good to
@@ -138,11 +138,32 @@ if you have no domain name, you will need to purchase one and read your server h
 and/or your DNS host's documentation on pointing it to your server on which you host
 the Django app.
 
-##### 3) Turn off debug
+#### 3) Turn off debug
 
 You may want debug on to initially test your site before adding SSL encryption but
 don't forget to set DEBUG = False in the settings after initial testing.
 
+#### 4) Put your IP address on the No-Log List
+
+If you are administrating the website, you probably access the pages often. While this
+is not going to inflate unique visits too badly (a *unique* visit means the server had
+to issue a new cookie; your browser will use the same cookie thereafter until it is
+closed), but you can easily inflate the page views since each page view is logged in
+the database (you can delete views and visits from the admin menu -> "Views and SEO" ->
+"Pages Viewed" or "Unique Visits"; the hamburger menu on the top right of either
+of those pages will have options to clear these records.
+
+To prevent inflating the views, you can put your IPv4 address in the IP No-Log List.
+From the admin menu choose "Denylists" -> "IP No-Log List". Anyone who is editing 
+the site frequently probably ought to put her or his IP address on thie list so
+the page view metrics are not inflated.
+
+> By the way, the cookies I use store absolutely no sensitive information,
+> the only thing they store is a timestamp of the browser's last request.
+> I log the location information from unique visits simply by using a lib
+> called ip2geotools (https://pypi.org/project/ip2geotools/) to lookup
+> the country, region, and city of the IP address that appears in the
+> request header.
 
 ### Recommendations
 
