@@ -143,6 +143,27 @@ the Django app.
 You may want debug on to initially test your site before adding SSL encryption but
 don't forget to set DEBUG = False in the settings after initial testing.
 
+##### 4) Put your IP address on the No-Log List
+
+If you are administrating the website, you probably access the pages often. While this
+is not going to inflate unique visits too badly (a *unique* visit means the server had
+to issue a new cookie; your browser will use the same cookie thereafter until it is
+closed), but you can easily inflate the page views since each page view is logged in
+the database (you can delete views and visits from the admin menu > "Views and SEO"
+> "Pages Viewed" or "Unique Visits"; the hamburger menu on the top right of either
+of those pages will have options to clear these records.
+
+To prevent inflating the views, you can put your IPv4 address in the IP No-Log List.
+From the admin menu choose "Denylists" > "IP No-Log List". Anyone who is editing 
+the site frequently probably ought to put her or his IP address on thie list so
+the page view metrics are not inflated.
+
+    By the way, the cookies I use store absolutely no sensitive information,
+    the only thing they store is a timestamp of the browser's last request.
+    I log the location information from unique visits simply by using a lib
+    called ip2geotools (https://pypi.org/project/ip2geotools/) to lookup
+    the country, region, and city of the IP address that appears in the
+    request header.
 
 ### Recommendations
 
