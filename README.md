@@ -42,7 +42,7 @@ Without further ado, let's get into the setup...
   
 ### 4) Comment out the urls files
 Before you will be able to apply database migrations, the urls files
--- admin_pages/urls.py, site_pages/urls.py, and api/urls.py --
+— admin_pages/urls.py, site_pages/urls.py, and api/urls.py —
 need to be commented out. In VS Code, this can be done by selecting
 all (Ctrl-a) and then entering the key combination, (Ctrl-k-c), and
 finally, (Ctrl-s) to save. This is not exactly elegant, but it is,
@@ -50,7 +50,7 @@ by far, the easiest solution I have found to avoid running into
 errors when trying to migrate the DB.
 
 ### 5) Make the migrations
-Please include the skip-checks flags; if you do not, well, you have
+Please include the skip-checks flags; if you do not—well—you have
 been warned.
 
     python3 manage.py makemigrations admin_pages --skip-checks
@@ -64,7 +64,7 @@ entering the key combination (Ctrl-k-u).
 
 ### 7) Run the initial_setup script
 The app is almost set up for you to run, but you will need to run the
-initial_setup.py script to create the appropriate static direcotries,
+initial_setup.py script to create the appropriate static directories,
 populate the DB with the neccessary rows, and allow you to create an
 initial account to log into. To do this enter the
 commands below:
@@ -154,8 +154,8 @@ using nginx as your web server. nginx will need a socket to communicate with the
 which is where the Python package, gunicorn comes into play. The documentation that greatly
 helped me set up this app on our Church's web server is:
 (https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04)
-Of course, I stuck with a simple sqlite3 database instead of PostgreSQL but the rest of the
-instructions were applicable, I beleive.
+Of course, I stuck with a simple SQLite3 database instead of PostgreSQL but the rest of the
+instructions were applicable, I believe.
 
 You will of course need for your traffic to be encrypted. I wouldn't even log into the site until
 this is done! The easiest way in the world to configure HTTPS is using Certbot and fortunately
