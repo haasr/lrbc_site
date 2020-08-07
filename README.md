@@ -118,7 +118,7 @@ address if you want. To do this, navigate to 127.0.0.1:8000/admin_pages -> Accou
  runserver command.
 
 
-### Notes for deploying
+## Notes for deploying
 
 If you would like to use this app for your church, that is why I have made it public
 so go for it. There are several things you should note.
