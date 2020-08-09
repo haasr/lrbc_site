@@ -39,30 +39,16 @@ Without further ado, let's get into the setup...
 ### 3) Install the requirements
     source venv/bin/activate
     pip3 install -r requirements.txt
-  
-### 4) Comment out the urls files
-Before you will be able to apply database migrations, the urls files
-— admin_pages/urls.py, site_pages/urls.py, and api/urls.py —
-need to be commented out. In VS Code, this can be done by selecting
-all (Ctrl-a) and then entering the key combination, (Ctrl-k-c), and
-finally, (Ctrl-s) to save. This is not exactly elegant, but it is,
-by far, the easiest solution I have found to avoid running into
-errors when trying to migrate the DB.
 
-### 5) Make the migrations
+### 4) Make the migrations
 Please include the skip-checks flags; if you do not—well—you have
 been warned.
 
     python3 manage.py makemigrations admin_pages --skip-checks
     python3 manage.py makemigrations site_pages --skip-checks
     python3 manage.py migrate --skip-checks
-  
-### 6) Uncomment the urls files
-Uncomment each of the previously commented-out urls.py files:
-In VS Code, this can be done by selecting all (Ctrl-a) and then
-entering the key combination (Ctrl-k-u).
 
-### 7) Run the initial_setup script
+### 5) Run the initial_setup script
 The app is almost set up for you to run, but you will need to run the
 initial_setup.py script to create the appropriate static directories,
 populate the DB with the neccessary rows, and allow you to create an
@@ -77,7 +63,7 @@ Now that the insertions have been made, I suggest changing the file
 extension of the initial_setup.py file so there isn't a chance
 that you accidently execute it again and overwrite your data.
 
-### 8) Run the server
+### 6) Run the server
 You are now ready to test the server by running the following command:
 
     python3 manage.py runserver 127.0.0.1:8000
