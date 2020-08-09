@@ -141,7 +141,7 @@ of those pages will have options to clear these records.
 
 To prevent inflating the views, you can put your IPv4 address in the IP No-Log List.
 From the admin menu choose "Denylists" -> "IP No-Log List". Anyone who is editing 
-the site frequently probably ought to put her or his IP address on thie list so
+the site frequently probably ought to put her or his IP address on the list so
 the page view metrics are not inflated.
 
 > By the way, the cookies I use store absolutely no sensitive information,
