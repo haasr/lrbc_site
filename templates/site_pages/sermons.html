@@ -29,8 +29,8 @@
         {% for sermon in sermons %}
         <li>
             <span class="audio-title space-right">{{ sermon.title }}</span><br>
-            <span class="audio-date-visible" style="display: none;">{{ sermon.date | date:"Y/m/d" }}</span>
-            <span>{{ sermon.date }}</span>&ensp;|&ensp;
+            <span class="audio-date" style="display: none;">{{ sermon.date | date:"Y/m/d" }}</span>
+            <span class="audio-date-visible">{{ sermon.date }}</span>&ensp;|&ensp;
             <span class="artist-name">{{ sermon.speaker.name }}</span>
             <br>
             <div class="audio-container">
