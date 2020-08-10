@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'site_pages',
     'users',
     'rest_framework',
+    'colorfield',
 ]
 
 MIDDLEWARE = [

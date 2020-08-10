@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from colorfield.fields import ColorField
 
 
 class SiteLook(models.Model):
@@ -21,6 +22,9 @@ class SiteLook(models.Model):
 
     favicon        = models.FileField()
     navigation_img = models.FileField()
+
+    footer_color  = ColorField(default='#B0D5D1')
+    gallery_color = ColorField(default='#B5E0E0')
 
     # Future TODO:
     # When form submitted have view make API call to convert

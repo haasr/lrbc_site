@@ -9,7 +9,7 @@
 </div>
 
 <div class="form-container">
-	<div class="text-center title-container"><h2>Manage Nav &amp; Footer</h2></div>
+	<div class="text-center title-container"><h2>Manage Site Look</h2></div>
 
 	<form method='post' enctype='multipart/form-data'>
 		{% csrf_token %}
@@ -31,4 +31,16 @@
 	</form>
 </div>
 <br>
+
+<script>
+	$(document).ready(function() {
+		let footer_color = document.getElementById('id_footer_color');
+		footer_color.type = 'color';
+		footer_color.style.width = '10em';
+
+		let gallery_color = document.getElementById('id_gallery_color');
+		gallery_color.type = 'color';
+		gallery_color.style.width = '10em';
+	})
+</script>
 {% endblock content %}

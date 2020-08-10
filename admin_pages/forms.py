@@ -1,5 +1,7 @@
 from django import forms
 from .models import *
+from colorfield.fields import ColorField
+
 
 class ImageOptions:
     PERCENTAGES = (
@@ -135,13 +137,18 @@ class SiteLookForm(forms.ModelForm):
         })
     )
 
+    footer_color = ColorField()
+
+    gallery_color = ColorField()
+
     class Meta:
         model = SiteLook
         fields = [
             'show_home', 'show_about', 'show_sermons', 'show_music',
             'show_videos', 'show_services', 'show_contact','show_email_form',
             'footer_tagline', 'footer_about', 'footer_location', 'lat', 'lon',
-            'footer_contact_phone', 'footer_contact_email', 'show_email_form'
+            'footer_contact_phone', 'footer_contact_email', 'show_email_form',
+            'footer_color', 'gallery_color'
         ]
 
 

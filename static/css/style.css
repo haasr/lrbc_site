@@ -115,7 +115,6 @@ body, html {
     text-align: center;
     overflow: hidden;
     padding: 2%;
-    background-color: rgba(181, 224, 224, 0.4);
 }
 
 .gallery-img-enlarge-container {
@@ -443,7 +442,6 @@ footer {
     margin-top: 4%;
     padding: 2%;
     border-radius: 10px;
-    background-color: #B0D5D1;
 }
 
 .footer-field {
