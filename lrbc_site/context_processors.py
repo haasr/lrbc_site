@@ -27,6 +27,8 @@ def add_to_context(request):
         'footer_location': site_look.footer_location,
         'footer_lat': site_look.lat,
         'footer_lon': site_look.lon,
+        'footer_color': site_look.footer_color,
+        'gallery_color': site_look.gallery_color,
         'footer_contact_email': site_look.footer_contact_email,
         'footer_contact_phone': site_look.footer_contact_phone,
         'show_email_form': site_look.show_email_form
