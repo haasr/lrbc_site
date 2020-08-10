@@ -126,16 +126,16 @@
 
 {% block content %} {% endblock content %}
 
-<footer class="shadow">
-    <div class="col-sm footer-right-border">
+<footer class="shadow" id="footer">
+    <div class="{{ footer_text_color }} col-sm footer-right-border">
       <h4>{{ footer_tagline }}</h4>
-      <p>
+      <p class="{{ footer_text_color }}">
         {{ footer_about }}
       </p>
     </div>
-    <div class="col-sm">
+    <div class="{{ footer_text_color }} col-sm">
       <h4>Location</h4>
-      <p>
+      <p class="{{ footer_text_color }}">
         {% if footer_lat and footer_lon %}
         <iframe allowtransparency="true" frameborder="0" scrolling="no" 
           style="width: 100%; height: 150px; margin-top: 10px; margin-bottom: 10px;" 
@@ -145,8 +145,8 @@
         {{ footer_location }}
       </p>
     </div>
-    <div class="col-sm footer-left-border">
-      <h4>Contact</h4>
+    <div class="{{ footer_text_color }} col-sm footer-left-border">
+      <h4 class="{{ footer_text_color }}">Contact</h4>
       {% if footer_contact_email != '' %}
       <a href="mailto:{{ footer_contact_email }}" target="_blank" class="fa footer-fa fa-envelope" 
         alt="Email link icon" style="white-space: nowrap;">
@@ -161,13 +161,20 @@
       {% endif %}
       {% if show_email_form %}
       <h5 style="font-weight: bold; padding-top: 5%;">Interested in learning more? Leave us your email.</h5>
-      <div>
+      <div class="{{ footer_text_color }}">
         {% csrf_token %}
-        {{ email_contact_form.as_p }}
+        {{ email_contact_form }}
+        {% if footer_text_color == 'text-dark' %}
         <button class="btn btn-outline-secondary" style="margin-left: 3%;"
           onclick="submitEmailForm('{{ csrf_token }}')">
           Submit
         </button>
+        {% else %}
+        <button class="btn btn-outline-light" style="margin-left: 3%;"
+          onclick="submitEmailForm('{{ csrf_token }}')">
+          Submit
+        </button>
+        {% endif %}
       </div>
       {% endif %}
     </div>

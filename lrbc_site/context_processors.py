@@ -31,5 +31,6 @@ def add_to_context(request):
         'gallery_color': site_look.gallery_color,
         'footer_contact_email': site_look.footer_contact_email,
         'footer_contact_phone': site_look.footer_contact_phone,
+        'footer_text_color': site_look.footer_text_color,
         'show_email_form': site_look.show_email_form
     }

@@ -25,6 +25,18 @@ class ImageOptions:
         ('display: inline-block;', 'inline-block'),
     )
 
+class TextOptions:
+    TEXT_COLORS = (
+        ('text-light', 'Light'),
+        ('text-dark', 'Dark'),
+    )
+
+    HEADER_SIZES = (
+        ('h1', 'Large'),
+        ('h2', 'Medium'),
+        ('h3', 'Small')
+    )
+
 
 class SiteLookForm(forms.ModelForm):
     show_home = forms.BooleanField(
@@ -119,6 +131,14 @@ class SiteLookForm(forms.ModelForm):
         })
     )
 
+    footer_text_color = forms.CharField(
+        label='Footer text color',
+        required=True,
+        widget=forms.Select(
+            choices=TextOptions.TEXT_COLORS
+        )
+    )
+
     navigation_img = forms.FileField(
         label='Nav Image (100x100px - 250x100px recommended):',
         required=False,
@@ -147,12 +167,31 @@ class SiteLookForm(forms.ModelForm):
             'show_home', 'show_about', 'show_sermons', 'show_music',
             'show_videos', 'show_services', 'show_contact','show_email_form',
             'footer_tagline', 'footer_about', 'footer_location', 'lat', 'lon',
-            'footer_contact_phone', 'footer_contact_email', 'show_email_form',
-            'footer_color', 'gallery_color'
+            'footer_contact_phone', 'footer_contact_email', 'footer_text_color',
+            'show_email_form', 'footer_color', 'gallery_color'
         ]
 
 
 class HomeForm(forms.ModelForm):
+    background_img = forms.FileField(
+        label='Splash Image (2000x900px recommended):',
+        required=False,
+        widget=forms.FileInput(attrs={
+            'multiple': False,
+            'accept': 'image/*'
+        })
+    )
+    
+    alert_banner = forms.CharField(
+        label='Alert Banner',
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': '4',
+            'cols': '40',
+            'placeholder': 'Enter an alert to display atop the page; style with HTML.'
+        })
+    )
+
     tagline = forms.CharField(
         label='Tagline',
         required=False,
@@ -162,6 +201,16 @@ class HomeForm(forms.ModelForm):
             'placeholder': 'Enter a short tagline here.'
         })
     )
+
+    tagline_size = forms.CharField(
+        label='Tagline size',
+        required=True,
+        widget=forms.Select(
+            choices=TextOptions.HEADER_SIZES
+        )
+    )
+
+    tagline_color = ColorField()
 
     # In the view, make this a link by prepending the
     # mailto in front.
@@ -218,15 +267,6 @@ class HomeForm(forms.ModelForm):
         required=False
     )
 
-    background_img = forms.FileField(
-        label='Splash Image (2000x900px recommended):',
-        required=False,
-        widget=forms.FileInput(attrs={
-            'multiple': False,
-            'accept': 'image/*'
-        })
-    )
-
     static_gallery = forms.BooleanField(
         label='Static gallery (no scrolling):',
         required=False,
@@ -246,21 +286,12 @@ class HomeForm(forms.ModelForm):
         required=False,
     )
 
-    alert_banner = forms.CharField(
-        label='Alert Banner',
-        required=False,
-        widget=forms.Textarea(attrs={
-            'rows': '4',
-            'cols': '40',
-            'placeholder': 'Enter an alert to display atop the page; style with HTML.'
-        })
-    )
-
     class Meta:
         model = Home
         fields = [
-            'background_img', 'alert_banner', 'tagline', 'email_addr', 'facebook_link',
-            'twitter_link', 'instagram_link', 'youtube_link', 'about_label', 'live_link',
+            'background_img', 'alert_banner', 'tagline', 'tagline_size', 
+            'tagline_color', 'email_addr', 'facebook_link', 'twitter_link',
+            'instagram_link','youtube_link', 'about_label', 'live_link',
             'gallery_imgs', 'static_gallery', 'delete_gallery'
         ]
 

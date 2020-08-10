@@ -23,6 +23,8 @@ class SiteLook(models.Model):
     favicon        = models.FileField()
     navigation_img = models.FileField()
 
+    footer_text_color = models.CharField(max_length=10)
+
     footer_color  = ColorField(default='#B0D5D1')
     gallery_color = ColorField(default='#B5E0E0')
 
@@ -38,6 +40,8 @@ class Home(models.Model):
     """Contains attributes that determine the content of the home page."""
     alert_banner   = models.CharField(max_length=300, blank=True, null=True)
     tagline        = models.CharField(max_length=100, blank=True, null=True)
+    tagline_size   = models.CharField(max_length=2) # Use h1, h2, or h3 as options.
+    tagline_color  = ColorField(default='#FFFFFF')
     email_addr     = models.CharField(max_length=320, blank=True, null=True)
     # Max lengths determined by https:// scheme +
     # host_name/ + filepath (if any) + max length of username.

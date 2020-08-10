@@ -35,7 +35,6 @@
         </div>
 
         <div class="text-center pad-container">
-
         {% if home.email_addr != '' %}
             <a href="mailto:{{ home.email_addr }}" target="_blank" class="hero-fa fa fa-envelope" alt="Mail link icon"></a>
         {% endif %}
@@ -51,14 +50,20 @@
         {% if home.youtube_link != '' %}
             <a href="{{ home.youtube_link }}" target="_blank" class="hero-fa fa fa-youtube" alt="YouTube link icon"></a>
         {% endif %}
-
         </div>
-
+        {% if display_gallery %}
         <a class="ct-btn-scroll ct-jst-btn-scroll text-center pad-container"
             href="#gallery-img-container">
             {% load static %}
             <img src="{% static 'site_pages/home/arrow-down.png' %}" alt="Down arrow icon">
         </a>
+        {% else %}
+        <a class="ct-btn-scroll ct-jst-btn-scroll text-center pad-container"
+            href="#footer">
+            {% load static %}
+            <img src="{% static 'site_pages/home/arrow-down.png' %}" alt="Down arrow icon">
+        </a>
+        {% endif %}
     </div>
 </div>
 
