@@ -56,7 +56,9 @@ x.save()
 x = Home(
     id=1, 
     alert_banner='',
-    tagline='', 
+    tagline='',
+    tagline_size='h1',
+    tagline_color='#FFFFFF',
     email_addr='',
     facebook_link='',
     twitter_link='',

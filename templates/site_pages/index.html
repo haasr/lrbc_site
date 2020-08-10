@@ -12,7 +12,13 @@
     <div class="hero-container">
 
         {% if home.tagline != '' %}
-        <h2>{{ home.tagline }}</h2>
+        {% if home.tagline_size == 'h1' %}
+        <h1 style="color: {{ home.tagline_color }};">{{ home.tagline }}</h1>
+        {% elif home.tagline_size == 'h2' %}
+        <h2 style="color: {{ home.tagline_color }}">{{ home.tagline }}</h2>
+        {% else %}
+        <h3 style="color: {{ home.tagline_color }}">{{ home.tagline }}</h3>
+        {% endif %}
         {% endif %}
 
         <div class="pad-container home-btn-links">
