@@ -40,11 +40,15 @@
                 </h2>
 
                 {% if contact.contact_address != '' %}
-                    <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
+                <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
                 {% endif %}
 
                 {% if contact.contact_mailbox != '' %}
-                    <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                {% endif %}
+
+                {% if contact.contact_email_addr != '' %}
+                <a href="mailto:{{ contact.contact_email_addr }}" target="_blank" class="fa footer-fa fa-envelope" alt="Email icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_email_addr }}</span></a>
                 {% endif %}
             {% endif %}
         </div>
@@ -94,11 +98,15 @@
                     </div>
                     <div class="content-container">
                         {% if contact.contact_address != '' %}
-                            <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
+                        <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
                         {% endif %}
 
                         {% if contact.contact_mailbox != '' %}
-                            <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                        <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                        {% endif %}
+
+                        {% if contact.contact_email_addr != '' %}
+                        <a href="mailto:{{ contact.contact_email_addr }}" target="_blank" class="fa footer-fa fa-envelope" alt="Email icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_email_addr }}</span></a>
                         {% endif %}
                     </div>
                 {% endif %}
@@ -129,11 +137,15 @@
             <div class="d-flex justify-content-center">
                 <div class="content-container">
                     {% if contact.contact_address != '' %}
-                        <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
+                    <h4 style="margin-bottom: 15px;">{{ contact.contact_address }}</h4>
                     {% endif %}
 
                     {% if contact.contact_mailbox != '' %}
-                        <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                    <h4 style="margin-bottom: 15px;">{{ contact.contact_mailbox }}</h4>
+                    {% endif %}
+
+                    {% if contact.contact_email_addr != '' %}
+                    <a href="mailto:{{ contact.contact_email_addr }}" target="_blank" class="fa footer-fa fa-envelope" alt="Email icon"><span class="space-left-sm" style="font-size: 0.8em;">{{ contact.contact_email_addr }}</span></a>
                     {% endif %}
                 </div>
             </div>
