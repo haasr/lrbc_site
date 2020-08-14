@@ -141,8 +141,9 @@ def delete_records(time_period, enddate, model):
             else:
                 for i in range(0, time_period):
                     Visitor.objects.filter(year=now_str[0],
-                        month=now_str[1], day=now_str[2]).delete()
+                                month=now_str[1], day=now_str[2]).delete()
                     now = now - timedelta(days=1)
+                    print(now)
                     now_str = now.__str__().split(' ')[0].split('-')
     except:
         delete_ok = False
@@ -182,7 +183,7 @@ class DailyPageViews(APIView):
             "page_labels": pages_allowed,
             "counts_per_day": counts_per_day
         }
-        return Response(data, content_type='text/json')
+        return Response(data)
 
 
 class WeeklyPageViews(APIView):
@@ -216,7 +217,7 @@ class WeeklyPageViews(APIView):
             "page_labels": pages_allowed,
             "weekly_counts": weekly_counts
         }
-        return Response(data, content_type='text/json')
+        return Response(data)
 
 
 class MonthlyPageViews(APIView):
@@ -273,7 +274,7 @@ class MonthlyPageViews(APIView):
             "avg_view_hour": hr_str,
             "total_views": num_views
         }
-        return Response(data, content_type='text/json')
+        return Response(data)
 
 
 class DailyVisitors(APIView):
@@ -326,7 +327,7 @@ class DailyVisitors(APIView):
             'counts_per_day': daily_cities_counts
         }
 
-        return Response(data, content_type='text/json')
+        return Response(data)
 
 
 class WeeklyVisitors(APIView):
@@ -401,7 +402,7 @@ class WeeklyVisitors(APIView):
             "counts_per_week": top_counts
         }
 
-        return Response(data, content_type='text/json')
+        return Response(data)
 
 
 class MonthlyVisitors(APIView):
@@ -505,7 +506,7 @@ class MonthlyVisitors(APIView):
             "returning_visitors": prev_visits
         }
 
-        return Response(data, content_type='text/json')
+        return Response(data)
 
 
 @login_required
