@@ -149,7 +149,7 @@ the page view metrics are not inflated.
 > I log the location information from unique visits simply by using a lib
 > called ip2geotools (https://pypi.org/project/ip2geotools/) to lookup
 > the country, region, and city of the IP address that appears in the
-> request header.
+> request header. The IP address itself is not stored.
 
 ### Recommendations
 
