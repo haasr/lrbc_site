@@ -79,9 +79,6 @@
                     document.getElementById('avg-view-hour').textContent =
                         "Average hour to view: " + data.avg_view_hour
 
-                    document.getElementById('total-returning-visitors').textContent =
-                        "Total returning visitors: " + data.returning_visitors
-
                     for (let i = 0; i < data.region_labels.length; i++) {
                         region_labels_per_mo.push(data.region_labels[i])
                     }
@@ -685,9 +682,6 @@
 
             <i class="fa fa-clock-o" aria-hidden="true"></i>
             <span id='avg-view-hour'></span><br>
-
-            <i class="fa fa-refresh" aria-hidden="true"></i>
-            <span id="total-returning-visitors"></span>
         </p>
     </div>
 

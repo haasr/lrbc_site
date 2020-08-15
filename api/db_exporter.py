@@ -19,8 +19,8 @@ def export_csv(model, time_period, enddate):
     if (model == 'Page'):
         value_label = 'page_name, year, month, day, time'
     else:
-        value_label = ('ip, city, region, country, year, ' +
-                        'month, day, time, prev_visit')
+        value_label = ('city, region, country, year, ' +
+                        'month, day, time')
 
     data = value_label + '\n'
 
@@ -127,9 +127,8 @@ def export_sql(model, table_name, time_period, enddate):
         value_label = ('INSERT INTO ' + table_name +
                         ' (page_name, year, month, day, time)')
     else:
-        value_label = ('INSERT INTO ' + table_name + ' (ip, city, ' +
-                        'region, country, year, month, day, time, ' +
-                        'prev_visit)')
+        value_label = ('INSERT INTO ' + table_name + ' (city, ' +
+                        'region, country, year, month, day, time) ')
 
     data = ''
     

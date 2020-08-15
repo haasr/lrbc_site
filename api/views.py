@@ -433,7 +433,6 @@ class MonthlyVisitors(APIView):
         top_counts = []
         regions_dict = {}
         hours = 0
-        prev_visits = 0
         num_visits = 0
 
         for i in range(0, 30):
@@ -444,10 +443,6 @@ class MonthlyVisitors(APIView):
             for visitor in visitors_by_day:
                 num_visits += 1
                 hours += (int(visitor.time[:2]))
-                try:
-                    prev_visits += int(visitor.prev_visit!='') # If the prev_visit field isn't null, return 1, else 0
-                except:
-                    pass
 
                 region = visitor.region + ', ' + visitor.country
                 try:
@@ -503,7 +498,6 @@ class MonthlyVisitors(APIView):
             "counts_per_region": top_counts,
             "avg_view_hour": hr_str,
             "total_visits": num_visits,
-            "returning_visitors": prev_visits
         }
 
         return Response(data)
