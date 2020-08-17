@@ -1,12 +1,6 @@
 {% extends './users_base.html' %}
 
 {% block content %}
-
-<style>
-	ul { list-style: none; }
-	li { color: red; }
-</style>
-
 <div class="login-container">
 
 	<div class="title">
@@ -32,7 +26,10 @@
 
         <input type="hidden" name="next"
             value="{% url 'admin_pages:admin_index' %}" />
-    </form>
+	</form>
+	<br>
+	Forgot your password?
+	<a href="{% url 'users:reset_password' %}">Reset it here</a>.
 </div>
 
 {% endblock content %}
