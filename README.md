@@ -1,6 +1,8 @@
 # lrbc_site
 Django web application to manage and host a church website.
 
+![Preview of the web application](./screenshots/preview.png)
+
 ## Requirements
 
 - Python 3.8.3
