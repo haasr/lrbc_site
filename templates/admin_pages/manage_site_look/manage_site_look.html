@@ -41,6 +41,10 @@
 		let gallery_color = document.getElementById('id_gallery_color');
 		gallery_color.type = 'color';
 		gallery_color.style.width = '10em';
-	})
+	});
+	
+	tinymce.init({
+		selector: '#id_footer_about'
+	});
 </script>
 {% endblock content %}

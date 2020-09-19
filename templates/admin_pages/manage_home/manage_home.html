@@ -36,6 +36,10 @@
 		let tagline_color = document.getElementById('id_tagline_color');
 		tagline_color.type = 'color';
 		tagline_color.style.width = '10em';
-	})
+	});
+
+	tinymce.init({
+		selector: '#id_alert_banner'
+	});
 </script>
 {% endblock content %}

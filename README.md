@@ -83,6 +83,17 @@ Footer" form also allows you to select which pages are accessible and which
 you may want to keep hidden. I also highly recommend filling out the SEO information
 once this app is running in production so your website will get found.
 
+TinyMCE registration:
+
+You will notice that I have used TinyMCE to provide text formatting tools for each
+of the textareas in "Manage Pages". It will display a message that it is unregistered
+with an API key. You can follow the link provided in the message to create a TinyMCE
+account. Then add your domain name to be able to use your key with that domain.
+Navigate to the "lrbc_site/templates/admin_pages" and open admin_pages_base.html:
+Replace the last script in the header (the script that contains "cdn.tiny.cloud" on
+line 23) with the script you were provided to copy and paste in the TinyMCE Quick-Start
+step following your registration.
+
 
 ### Ensuring forms are "live"
 
