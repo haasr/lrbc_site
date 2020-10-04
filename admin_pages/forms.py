@@ -3,6 +3,33 @@ from .models import *
 from colorfield.fields import ColorField
 
 
+class FontOptions:
+    GOOGLE_FONTS = (
+        ("""<link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">&&Sansita Swashed""", """Sansita Swashed"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap" rel="stylesheet">&&Arimo""", """Arimo"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">&&Didact Gothic""", """Didact Gothic"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">&&Poppins""", """Poppins"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">&&Roboto""", """Roboto"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">&&Metrophobic""", """Metrophobic"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">&&Montserrat""", """Montserrat"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">&&Mulish""", """Mulish"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">&&Open Sans""", """Open Sans"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Piazzolla&display=swap" rel="stylesheet">&&Piazzolla""", """Piazzolla"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">&&Delius""", """Delius"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">&&Itim""", """Itim"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">&&Gloria Hallelujah""", """Gloria Hallelujah"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">&&Sansita Swashed""", """Sansita Swashed"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">&&Courier Prime""", """Courier Prime"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Cousine&display=swap" rel="stylesheet">&&Cousine""", """Cousine"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">&&PT Mono""", """PT Mono"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">&&Roboto Mono""", """Roboto Mono"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">&&Source Code Pro""", """Source Code Pro"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">&&Comic Neue""", """Comic Neue"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">&&Righteous""", """Righteous"""),
+        ("""<link href="https://fonts.googleapis.com/css2?family=Sansita&display=swap" rel="stylesheet">&&Sansita""", """Sansita"""),
+    )
+
+
 class ImageOptions:
     PERCENTAGES = (
             ('width: 10%;', '10%'),
@@ -157,6 +184,19 @@ class SiteLookForm(forms.ModelForm):
         })
     )
 
+    font = forms.CharField(
+        label='Font',
+        required=False,
+        widget=forms.Select(
+            choices=FontOptions.GOOGLE_FONTS
+        )
+    )
+
+    font_preview = forms.CharField(
+        label='Font Preview',
+        required=False,
+    )
+
     footer_color = ColorField()
 
     gallery_color = ColorField()
@@ -168,7 +208,7 @@ class SiteLookForm(forms.ModelForm):
             'show_videos', 'show_services', 'show_contact','show_email_form',
             'footer_tagline', 'footer_about', 'footer_location', 'lat', 'lon',
             'footer_contact_phone', 'footer_contact_email', 'footer_text_color',
-            'show_email_form', 'footer_color', 'gallery_color'
+            'show_email_form', 'font', 'font_preview', 'footer_color', 'gallery_color'
         ]
 
 

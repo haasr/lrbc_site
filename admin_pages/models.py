@@ -20,6 +20,7 @@ class SiteLook(models.Model):
     footer_contact_email = models.CharField(max_length=320)
     show_email_form      = models.BooleanField(default=True)
 
+    font           = models.TextField()
     favicon        = models.FileField()
     navigation_img = models.FileField()
 
@@ -28,10 +29,6 @@ class SiteLook(models.Model):
     footer_color  = ColorField(default='#B0D5D1')
     gallery_color = ColorField(default='#B5E0E0')
 
-    # Future TODO:
-    # When form submitted have view make API call to convert
-    # address to latitude and longitude. This way you can
-    # create a Google Maps iframe to go in the footer.
     lat = models.CharField(max_length=200)
     lon = models.CharField(max_length=200)
 

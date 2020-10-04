@@ -1,5 +1,30 @@
 {% extends "../admin_pages_base.html" %}
 
+{% block additional_links %}
+<link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Metrophobic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Piazzolla&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cousine&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sansita&display=swap" rel="stylesheet">
+{% endblock additional_links %}
+
 {% block content %}
 
 <div class="d-flex justify-content-center" style="padding: 1%;">
@@ -33,6 +58,9 @@
 <br>
 
 <script>
+	var fontSel = document.getElementById('id_font');
+	var fontPrev = document.getElementById('id_font_preview');
+
 	$(document).ready(function() {
 		let footer_color = document.getElementById('id_footer_color');
 		footer_color.type = 'color';
@@ -41,10 +69,20 @@
 		let gallery_color = document.getElementById('id_gallery_color');
 		gallery_color.type = 'color';
 		gallery_color.style.width = '10em';
+
+		let font = fontSel.value.split('&&')[1];
+		fontPrev.style.fontFamily = font + ", sans-serif";
+
+		fontPrev.value = 'The brown fox jumped over the lazy dog.';
 	});
-	
+
 	tinymce.init({
 		selector: '#id_footer_about'
 	});
+
+	fontSel.onchange = function() {
+		let font = fontSel.value.split('&&')[1];
+		fontPrev.style.fontFamily = font + ", sans-serif";
+	}
 </script>
 {% endblock content %}

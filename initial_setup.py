@@ -4,6 +4,7 @@ from lrbc_site import settings
 import os
 
 SITE_PAGES_DIR = settings.BASE_DIR + '/static/site_pages/'
+DEFAULT_FONT = '<link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">&&Mulish'
 
 try:
     os.mkdir(SITE_PAGES_DIR + 'home/gallery_images/')
@@ -42,6 +43,7 @@ x = SiteLook(
     show_videos=True,
     show_services=True,
     show_contact=True,
+    font=DEFAULT_FONT,
     footer_tagline='',
     footer_about='',
     footer_location='',

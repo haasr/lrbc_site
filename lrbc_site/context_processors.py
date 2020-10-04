@@ -5,6 +5,12 @@ def add_to_context(request):
     site_look = SiteLook.objects.get(id=1)
     seo = SEO.objects.get(id=1)
 
+    try:
+        f = site_look.font.split('&&')
+    except:
+        f[0] = '<link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">'
+        f[1] = "Mulish"
+
     return {
         'email_contact_form': EmailContactForm(),
         'prayer_request_form': PrayerRequestForm(),
@@ -31,6 +37,8 @@ def add_to_context(request):
         'gallery_color': site_look.gallery_color,
         'footer_contact_email': site_look.footer_contact_email,
         'footer_contact_phone': site_look.footer_contact_phone,
+        'font': f[0],
+        'font_family': f[1],
         'footer_text_color': site_look.footer_text_color,
         'show_email_form': site_look.show_email_form
     }
