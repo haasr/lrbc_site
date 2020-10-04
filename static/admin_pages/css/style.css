@@ -4,6 +4,16 @@
     background-color: #1C2329;
 }
 
+.admin-title {
+    margin-bottom: 3%;
+    font-weight: 400;
+    word-wrap: break-word;
+    white-space: nowrap;
+    display: inline;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
 .center-table {
     text-align: center;
     padding: 5%;
@@ -146,8 +156,8 @@ label {
 @media only screen
 and (min-width : 1320px) {
 
-    .title {
-        font-size: 1.6em;
+    .admin-title {
+        font-size: 3em;
     }
 
     input {
@@ -170,6 +180,10 @@ and (max-width: 1319px) and (min-width: 690px) {
 
     .admin-menu-item {
         padding-left: 15%;
+    }
+
+    .admin-title {
+        font-size: 2em;
     }
 
     label {
@@ -231,8 +245,8 @@ and (max-width: 689px) and (min-width: 470px) {
 @media only screen
 and (max-width: 469px){
 
-    .title {
-        font-size: 1.2em;
+    .admin-title {
+        font-size: 1em;
     }
 
     .admin-menu {

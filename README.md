@@ -89,10 +89,9 @@ You will notice that I have used TinyMCE to provide text formatting tools for ea
 of the textareas in "Manage Pages". It will display a message that it is unregistered
 with an API key. You can follow the link provided in the message to create a TinyMCE
 account. Then add your domain name to be able to use your key with that domain.
-Navigate to the "lrbc_site/templates/admin_pages" and open admin_pages_base.html:
-Replace the last script in the header (the script that contains "cdn.tiny.cloud" on
-line 23) with the script you were provided to copy and paste in the TinyMCE Quick-Start
-step following your registration.
+Open "lrbc_site/settings.py" and replace the script stored to the TINYMCE_SCRIPT 
+variable on line 20 with the script you were provided TinyMCE Quick-Start step
+following your registration.
 
 
 ### Ensuring forms are "live"

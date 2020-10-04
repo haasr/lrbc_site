@@ -1,5 +1,6 @@
 from admin_pages.models import SiteLook, SEO
 from site_pages.forms import *
+from lrbc_site import settings
 
 def add_to_context(request):
     site_look = SiteLook.objects.get(id=1)
@@ -40,5 +41,6 @@ def add_to_context(request):
         'font': f[0],
         'font_family': f[1],
         'footer_text_color': site_look.footer_text_color,
-        'show_email_form': site_look.show_email_form
+        'show_email_form': site_look.show_email_form,
+        'tinymce_script': settings.TINYMCE_SCRIPT
     }
