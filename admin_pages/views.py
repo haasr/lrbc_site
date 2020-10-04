@@ -116,8 +116,9 @@ def manage_site_look(request):
                 image = request.FILES['favicon']
                 fs_storage.save('favicon.ico', image)
 
-        form.save()
-        api_views.update_pages_allowed()
+        if (form.is_valid()):
+            form.save()
+            api_views.update_pages_allowed()
 
         return HttpResponseRedirect(reverse('admin_pages:admin_index'))
 

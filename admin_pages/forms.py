@@ -5,7 +5,6 @@ from colorfield.fields import ColorField
 
 class FontOptions:
     GOOGLE_FONTS = (
-        ("""<link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">&&Sansita Swashed""", """Sansita Swashed"""),
         ("""<link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap" rel="stylesheet">&&Arimo""", """Arimo"""),
         ("""<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">&&Didact Gothic""", """Didact Gothic"""),
         ("""<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">&&Poppins""", """Poppins"""),
@@ -108,12 +107,12 @@ class SiteLookForm(forms.ModelForm):
 
     footer_tagline = forms.CharField(
         label='Short tagline (26 char. max)',
-        required=True,
+        required=False,
     )
 
     footer_about = forms.CharField(
         label='About Statement',
-        required=True,
+        required=False,
         widget=forms.Textarea(attrs={
             'rows': '3',
             'cols': '40',
