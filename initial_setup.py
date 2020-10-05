@@ -23,6 +23,10 @@ try:
 except:
     pass
 try:
+    os.mkdir(SITE_PAGES_DIR + 'leadership')
+except:
+    pass
+try:
     os.mkdir(SITE_PAGES_DIR + 'leadership/header_image')
 except:
     pass
