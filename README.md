@@ -78,8 +78,8 @@ credentials at 127.0.0.1:8000/users/login or 127.0.0.1:8000/admin_pages.
 
 You will notice several options which I will do my best to begin documenting,
 however, the ones you will access most frequently are those under "Manage Pages".
-These control the content of the navigation and footer and each page. The "Nav &
-Footer" form also allows you to select which pages are accessible and which
+These control the content of the navigation and footer and each page. The "Site Look"
+form also allows you to select which pages are accessible and which
 you may want to keep hidden. I also highly recommend filling out the SEO information
 once this app is running in production so your website will get found.
 
