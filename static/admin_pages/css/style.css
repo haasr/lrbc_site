@@ -156,10 +156,6 @@ label {
 @media only screen
 and (min-width : 1320px) {
 
-    .admin-title {
-        font-size: 3em;
-    }
-
     input {
         width: 21em;
     }
@@ -180,10 +176,6 @@ and (max-width: 1319px) and (min-width: 690px) {
 
     .admin-menu-item {
         padding-left: 15%;
-    }
-
-    .admin-title {
-        font-size: 2em;
     }
 
     label {
@@ -244,10 +236,6 @@ and (max-width: 689px) and (min-width: 470px) {
 
 @media only screen
 and (max-width: 469px){
-
-    .admin-title {
-        font-size: 1em;
-    }
 
     .admin-menu {
         margin-left: 1%;

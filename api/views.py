@@ -41,6 +41,8 @@ def update_pages_allowed():
     pages_allowed = pages_allowed[:1] # Index is always visible.
     if (site_look.show_about):
         pages_allowed.append('About')
+    if (site_look.show_leadership):
+        pages_allowed.append('Leadership')
     if (site_look.show_sermons):
         pages_allowed.append('Sermons')
     if (site_look.show_music):

@@ -75,6 +75,11 @@ class SiteLookForm(forms.ModelForm):
         required=False,
     )
 
+    show_leadership = forms.BooleanField(
+        label='Show Leadership Page',
+        required=False,
+    )
+
     show_sermons = forms.BooleanField(
         label='Show Sermons Page',
         required=False,
@@ -166,12 +171,20 @@ class SiteLookForm(forms.ModelForm):
     )
 
     navigation_img = forms.FileField(
-        label='Nav Image (100x100px - 250x100px recommended):',
+        label='Nav Image',
         required=False,
         widget=forms.FileInput(attrs={
             'multiple': False,
             'accept': 'image/*'
         })
+    )
+
+    navigation_img_size = forms.CharField(
+        label='Nav Image Size',
+        required=False,
+        widget=forms.Select(
+            choices=ImageOptions.PERCENTAGES
+        )
     )
 
     favicon = forms.FileField(
@@ -203,11 +216,11 @@ class SiteLookForm(forms.ModelForm):
     class Meta:
         model = SiteLook
         fields = [
-            'show_home', 'show_about', 'show_sermons', 'show_music',
+            'show_home', 'show_about', 'show_leadership', 'show_sermons', 'show_music',
             'show_videos', 'show_services', 'show_contact','show_email_form',
             'footer_tagline', 'footer_about', 'footer_location', 'lat', 'lon',
-            'footer_contact_phone', 'footer_contact_email', 'footer_text_color',
-            'show_email_form', 'font', 'font_preview', 'footer_color', 'gallery_color'
+            'footer_contact_phone', 'footer_contact_email', 'footer_text_color', 'navigation_img', 'navigation_img_size', 'show_email_form', 'font',
+            'font_preview', 'footer_color', 'gallery_color'
         ]
 
 
@@ -350,6 +363,14 @@ class AboutForm(forms.ModelForm):
         })
     )
 
+    header_text = forms.CharField(
+        label='Main Header Text',
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'E.g. Get to know us'
+        })
+    )
+
     box1_header_text = forms.CharField(
         label='Box 1 Header Text',
         required=False,
@@ -484,11 +505,127 @@ class AboutForm(forms.ModelForm):
     class Meta:
         model = About
         fields = [ 
-            'show_header_image', 'header_image',
+            'show_header_image', 'header_image', 'header_text',
             'box1_header_text', 'box1_content_text', 'box1_img', 'box1_img_alt',
             'box1_img_size', 'box1_img_position','box2_header_text', 'box2_content_text',
             'box2_img', 'box2_img_alt', 'box2_img_size', 'box2_img_position', 'gallery_imgs',
             'static_gallery', 'delete_gallery', 'delete_box1_img', 'delete_box2_img'
+        ]
+
+
+class LeadershipHeaderForm(forms.ModelForm):
+    show_header_image = forms.BooleanField(
+        label='Show Header Image',
+        required=False,
+    )
+
+    header_image = forms.FileField(
+        label='Header Image (~3200x1500px recommended)',
+        required=False,
+        widget=forms.FileInput(attrs={
+            'multiple': False,
+            'accept': 'image/*'
+        })
+    )
+
+    header_text = forms.CharField(
+        label='Header Text',
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'E.g. Get to know us.'
+        })
+    )
+
+    description_text = forms.CharField(
+        label='Description Text',
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': '3',
+            'cols': '40',
+            'placeholder': 'Describe or introduce your church\'s leadership.'
+        })
+    )
+
+    class Meta:
+        model = LeadershipHeader
+        fields = [
+            'show_header_image', 'header_image', 'header_text',
+            'description_text'
+        ]
+
+
+class LeaderForm(forms.ModelForm):
+    name = forms.CharField(
+        label='Name',
+        required=True,
+        widget=forms.TextInput()
+    )
+
+    position = forms.CharField(
+        label='Position',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'E.g. Worship Leader'
+        })
+    )
+
+    email_addr = forms.EmailField(
+        label='Email Address',
+        required=False,
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Optional contact email'
+        })
+    )
+
+    profile_image = forms.FileField(
+        label='Header Image (~3200x1500px recommended)',
+        required=False,
+        widget=forms.FileInput(attrs={
+            'multiple': False,
+            'accept': 'image/*'
+        })
+    ),
+
+    profile_image_alt = forms.CharField(
+        label='Profile Image Alt',
+        required=False,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Describe the image'
+        })
+    )
+
+    profile_image_size = forms.CharField(
+        label='Profile Image Size:',
+        required=False,
+        widget=forms.Select(
+            choices=ImageOptions.PERCENTAGES
+        )
+    )
+
+    profile_image_position = forms.CharField(
+        label='Profile Image Position',
+        required=False,
+        widget = forms.Select(
+            choices=ImageOptions.POSITIONS
+        )
+    )
+
+    bio = forms.CharField(
+        label='Biography',
+        required=False,
+        widget=forms.Textarea(attrs={
+            'rows': '3',
+            'cols': '40',
+            'placeholder': 'Brief bio to introduce the leader and her or his position.'
+        })
+    )
+
+    class Meta:
+        model = Leader
+        fields = [
+            'name', 'position', 'email_addr', 'profile_image', 
+            'profile_image_alt', 'profile_image_size',
+            'profile_image_position', 'bio'
         ]
 
 

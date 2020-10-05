@@ -5,13 +5,14 @@ from colorfield.fields import ColorField
 
 class SiteLook(models.Model):
     """Contains attributes that determine the content of the nav and footer."""
-    show_home      = models.BooleanField(default=False)
-    show_about     = models.BooleanField(default=True)
-    show_sermons   = models.BooleanField(default=True)
-    show_music     = models.BooleanField(default=True)
-    show_videos    = models.BooleanField(default=True)
-    show_services  = models.BooleanField(default=True)
-    show_contact   = models.BooleanField(default=True)
+    show_home       = models.BooleanField(default=False)
+    show_about      = models.BooleanField(default=True)
+    show_leadership = models.BooleanField(default=True)
+    show_sermons    = models.BooleanField(default=True)
+    show_music      = models.BooleanField(default=True)
+    show_videos     = models.BooleanField(default=True)
+    show_services   = models.BooleanField(default=True)
+    show_contact    = models.BooleanField(default=True)
 
     footer_tagline       = models.CharField(max_length=26)
     footer_about         = models.CharField(max_length=300)
@@ -22,7 +23,9 @@ class SiteLook(models.Model):
 
     font           = models.TextField()
     favicon        = models.FileField()
-    navigation_img = models.FileField()
+
+    navigation_img      = models.FileField()
+    navigation_img_size = models.CharField(max_length=12, blank=True, null=True)
 
     footer_text_color = models.CharField(max_length=10)
 
@@ -61,8 +64,9 @@ class Home(models.Model):
 class About(models.Model):
     """Contains attributes that determine the content of the about page."""
     show_header_image      = models.BooleanField(default=True)
-    header_image           = models.FileField()
+    header_image           = models.FileField(null=True, blank=True)
     header_image_file_name = models.TextField()
+    header_text            = models.CharField(max_length=75)
 
     box1_header_text   = models.CharField(max_length=75, blank=True, null=True)
     box1_content_text  = models.CharField(max_length=6000, blank=True, null=True)
@@ -88,11 +92,36 @@ class About(models.Model):
     delete_box2_img = models.BooleanField(default=False)
 
 
+class LeadershipHeader(models.Model):
+    """Contains attributes that determine the content of the leadership page."""
+    show_header_image      = models.BooleanField(default=True)
+    header_image           = models.FileField(null=True, blank=True)
+    header_image_file_name = models.TextField()
+    header_text            = models.CharField(max_length=75)
+    description_text       = models.CharField(max_length=800, blank=True, null=True)
+
+
+class Leader(models.Model):
+    """Represents a leader of the organization."""
+    name        = models.CharField(max_length=100)
+    position    = models.CharField(max_length=100)
+    email_addr  = models.CharField(max_length=320)
+
+    profile_image           = models.FileField(null=True, blank=True)
+    profile_image_alt       = models.CharField(max_length=75)
+    profile_image_size      = models.CharField(max_length=12, blank=True, null=True)
+    profile_image_position  = models.CharField(max_length=22, blank=True, null=True)
+    profile_image_file_name = models.TextField()
+
+    bio = models.CharField(max_length=2000)
+
+
 class Services(models.Model):
     """Contains attributes that determine the content of the services page."""
     show_header_image      = models.BooleanField(default=True)
-    header_image           = models.FileField()
+    header_image           = models.FileField(null=True, blank=True)
     header_image_file_name = models.TextField()
+    header_text            = models.CharField(max_length=75)
 
     box1_header_text   = models.CharField(max_length=75, blank=True, null=True)
     box1_content_text  = models.CharField(max_length=6000, blank=True, null=True)
@@ -133,7 +162,7 @@ class Services(models.Model):
 class Contact(models.Model):
     """Contains attributes that determine the content of the contact page."""
     show_header_image      = models.BooleanField(default=True)
-    header_image           = models.FileField()
+    header_image           = models.FileField(null=True, blank=True)
     header_image_file_name = models.TextField()
 
     phone_fax_header_text = models.CharField(max_length=75, blank=True, null=True)
@@ -152,7 +181,7 @@ class Contact(models.Model):
 class SermonsHeader(models.Model):
     """Contains attributes that determine the header content of the Sermons page."""
     show_header_image = models.BooleanField(default=True)
-    header_image      = models.FileField()
+    header_image      = models.FileField(null=True, blank=True)
     header_text       = models.CharField(max_length=75)
 
     header_image_file_name = models.TextField()
@@ -161,7 +190,7 @@ class SermonsHeader(models.Model):
 class MusicHeader(models.Model):
     """Contains attributes that determine the header content of the Worship Music page."""
     show_header_image = models.BooleanField(default=True)
-    header_image      = models.FileField()
+    header_image      = models.FileField(null=True, blank=True)
     header_text       = models.CharField(max_length=75)
 
     header_image_file_name = models.TextField()
@@ -170,7 +199,7 @@ class MusicHeader(models.Model):
 class VideosHeader(models.Model):
     """Contains attributes that determine the header content of the Worship Videos page."""
     show_header_image = models.BooleanField(default=True)
-    header_image      = models.FileField()
+    header_image      = models.FileField(null=True, blank=True)
     header_text       = models.CharField(max_length=75)
 
     header_image_file_name = models.TextField()

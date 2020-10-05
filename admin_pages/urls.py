@@ -11,6 +11,8 @@ urlpatterns = [
     path('manage_site_look/', views.manage_site_look, name='manage_site_look'),
     path('manage_home/', views.manage_home, name='manage_home'),
     path('manage_about/', views.manage_about, name='manage_about'),
+    path('manage_leadership/', views.manage_leadership, name='manage_leadership'),
+    path('manage_leadership_header/', views.manage_leadership_header, name='manage_leadership_header'),
     path('manage_resources/', views.manage_resources, name='manage_resources'),
     path('manage_sermons_header/', views.manage_sermons_header, name='manage_sermons_header'),
     path('manage_worship_music_header/', views.manage_worship_music_header, name='manage_worship_music_header'),
@@ -22,6 +24,10 @@ urlpatterns = [
     path('manage_email_account/', views.manage_email_account, name='manage_email_account'),
     path('manage_ip_nolog_list/', views.manage_ip_nolog_list, name='manage_ip_nolog_list'),
     path('manage_email_denylist/', views.manage_email_denylist, name='manage_email_denylist'),
+
+    path('new_leader/', views.new_leader, name='new_leader'),
+    path('edit_leader/<int:leader_id>', views.edit_leader, name='edit_leader'),
+    path('delete_leader/<int:leader_id>', views.delete_leader, name='delete_leader'),
 
     path('new_speaker/', views.new_speaker, name='new_speaker'),
     path('edit_speaker/<int:speaker_id>/', views.edit_speaker, name='edit_speaker'),

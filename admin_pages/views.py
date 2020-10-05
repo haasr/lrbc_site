@@ -25,6 +25,8 @@ ABOUT_GALLERY_IMGS_DIR = STATIC_DIR + '/site_pages/about/gallery_images/'
 BACKGROUND_DIR         = STATIC_DIR + '/site_pages/home/bg_image/'
 CONTACT_HEADER_DIR     = STATIC_DIR + '/site_pages/contact/header_image/'
 HOME_GALLERY_IMGS_DIR  = STATIC_DIR + '/site_pages/home/gallery_images/'
+LEADERSHIP_HEADER_DIR  = STATIC_DIR + '/site_pages/leadership/header_image/'
+LEADERSHIP_LEADERS_DIR = STATIC_DIR + '/site_pages/leadership/leaders_images/'
 MUSIC_AUDIO_DIR        = STATIC_DIR + '/site_pages/resources/worship_music/audio/'
 MUSIC_HEADER_DIR       = STATIC_DIR + '/site_pages/resources/worship_music/header_image/'
 NAV_ICON_DIR           = STATIC_DIR + '/site_pages/site_look/nav_image/'
@@ -37,7 +39,7 @@ SERVICES_BOX2_IMG_DIR  = STATIC_DIR + '/site_pages/services/box2_image/'
 SERVICES_BOX3_IMG_DIR  = STATIC_DIR + '/site_pages/services/box3_image/'
 STATIC_IMGS_DIR        = STATIC_DIR + '/images/'
 VIDEOS_HEADER_DIR      = STATIC_DIR + '/site_pages/resources/worship_videos/header_image/'
-VIDEOS_BULLETINS_DIR    = STATIC_DIR + '/site_pages/resources/worship_videos/bulletins/'
+VIDEOS_BULLETINS_DIR   = STATIC_DIR + '/site_pages/resources/worship_videos/bulletins/'
 
 
 @login_required
@@ -244,6 +246,163 @@ def manage_about(request):
 
     context = { 'about': about, 'form': form }
     return render(request, 'admin_pages/manage_about/manage_about.html', context)
+
+
+@login_required
+def manage_leadership(request):
+    """Provides the user a template to control the content that would appear
+    on the Leadership page. Allows CRUD operations for Leader objects.
+
+    Parameters:
+    request (HttpRequest): An HTTP Request object. 
+
+    Returns:
+    HttpResponse: Directs the user to the appropriate URL to display the template.
+    """
+    leaders = Leader.objects.all()
+
+    context = { 'leaders': leaders }
+    return render(request, 'admin_pages/manage_leadership/manage_leadership.html', context)
+
+
+@login_required
+def manage_leadership_header(request):
+    """Provides the user a form template to edit the data of the Leadership
+    object (for Leadership page content) with id 1.
+
+    Parameters:
+    request (HttpRequest): An HTTP Request object. 
+
+    Returns:
+    HttpResponse: Directs the user to the appropriate URL depending on the request method.
+    """
+    header = LeadershipHeader.objects.get(id=1)
+
+    if (request.method != 'POST'):
+        form = LeadershipHeaderForm(instance=header)
+    else:
+        form = LeadershipHeaderForm(instance=header, data=request.POST)
+
+        if (form.is_valid()):
+            form.save()
+
+            data = form.cleaned_data
+
+            if (len(request.FILES) != 0):
+                if('header_image' in request.FILES):
+                    try_delete_files(LEADERSHIP_HEADER_DIR)
+                    fs_storage = FileSystemStorage(location=LEADERSHIP_HEADER_DIR)
+                    image = request.FILES['header_image']
+                    filename = fs_storage.save(image.name, image)
+                    header.header_image_file_name = filename
+
+            header.save()
+            try:
+                os.remove(os.path.join(settings.BASE_DIR, filename))
+            except:
+                pass
+            return HttpResponseRedirect(reverse('admin_pages:manage_leadership'))
+
+    context = { 'form': form }
+    return render(request, 'admin_pages/manage_leadership/manage_leadership_header.html', context)
+
+
+@login_required
+def new_leader(request):
+    """Provides the user a form template to create a new Leader object.
+
+    Parameters:
+    request (HttpRequest): An HTTP Request object.
+    
+    Returns:
+    HttpResponse: Directs the user to the appropriate URL depending on the vaidity of the form.
+    """
+    if (request.method != 'POST'):
+        form = LeaderForm()
+    else:
+        fs_storage = FileSystemStorage(location=LEADERSHIP_LEADERS_DIR)
+        form = LeaderForm(data=request.POST)
+
+        if (form.is_valid()):
+            new_leader_form = form.save(commit=False)
+            new_leader_form.profile_image_file_name = ''
+            
+            if len(request.FILES) != 0:
+                profile_img = request.FILES['profile_image']
+                filename = fs_storage.save(profile_img.name, profile_img)
+                new_leader_form.profile_image_file_name = str(filename)
+                try:
+                    os.remove(os.path.join(settings.BASE_DIR, filename))
+                except:
+                    pass
+            
+            new_leader_form.save()
+            return HttpResponseRedirect(reverse('admin_pages:manage_leadership'))
+    
+    context = { 'form': form }
+    return render(request, 'admin_pages/manage_leadership/leaders/new_leader.html', context)
+
+
+@login_required
+def edit_leader(request, leader_id):
+    """Provides the user a form template to edit an existing Leader object.
+
+    Parameters:
+    request (HttpRequest): An HTTP Request object. 
+
+    Returns:
+    HttpResponse: Directs the user to the appropriate URL depending on the vaidity of the form.
+    """
+    leader = Leader.objects.get(id=leader_id)
+
+    if (request.method != 'POST'):
+        form = LeaderForm(instance=leader)
+    else:
+        fs_storage = FileSystemStorage(location=LEADERSHIP_LEADERS_DIR)
+        form = LeaderForm(instance=leader, data=request.POST)
+
+        if form.is_valid():
+            edit_leader = form.save(commit=False)
+
+            if len(request.FILES) != 0:
+                if (leader.profile_image_file_name != 0):
+                    try:
+                        os.remove(os.path.join(LEADERSHIP_LEADERS_DIR, 
+                            leader.profile_image_file_name))
+                    except:
+                        pass
+                profile_image = request.FILES['profile_image']
+                filename = fs_storage.save(profile_image.name, profile_image)
+
+                edit_leader.profile_image_file_name = str(filename)
+
+            edit_leader.save()
+            return HttpResponseRedirect(reverse('admin_pages:manage_leadership'))
+
+    context = { 'leader': leader, 'form': form }
+    return render(request, 'admin_pages/manage_leadership/leaders/edit_leader.html', context)
+
+
+@login_required
+def delete_leader(request, leader_id):
+    """Deletes an existing Leader object.
+
+    Parameters:
+    request (HttpRequest): An HTTP Request object.
+
+    Returns:
+    HttpResponse: Directs the user to the appropriate URL.
+    """
+    leader = Leader.objects.get(id=leader_id)
+
+    image_file_name = leader.profile_image_file_name
+    if not (image_file_name == ''):
+        try:
+            os.remove(os.path.join(LEADERSHIP_LEADERS_DIR, image_file_name))
+        except:
+            pass
+    leader.delete()
+    return HttpResponseRedirect(reverse('admin_pages:manage_leadership'))
 
 
 @login_required
@@ -766,7 +925,7 @@ def new_worship_video(request, speaker_id):
         form = WorshipVideoForm()
     else:
         fs_storage = FileSystemStorage(location=VIDEOS_BULLETINS_DIR)
-        form = WorshipVideoForm(data=request.POST, files=request.FILES)
+        form = WorshipVideoForm(data=request.POST)
 
         if (form.is_valid()):
             new_video_form = form.save(commit=False)
@@ -808,8 +967,8 @@ def edit_worship_video(request, video_id):
     if (request.method != 'POST'):
         form = WorshipVideoForm(instance=video)
     else:
-        fs_storage = FileSystemStorage(location=VIDEO_BULLETINS_DIR)
-        form = WorshipVideoForm(instance=video, data=request.POST, files=request.FILES)
+        fs_storage = FileSystemStorage(location=VIDEOS_BULLETINS_DIR)
+        form = WorshipVideoForm(instance=video, data=request.POST)
 
         if (form.is_valid()):
             edit_video = form.save(commit=False)
@@ -817,7 +976,7 @@ def edit_worship_video(request, video_id):
             if len(request.FILES) != 0:
                 if (video.file_name != ''):
                     try:
-                        os.remove(os.path.join(VIDEO_BULLETINS_DIR, video.file_name))
+                        os.remove(os.path.join(VIDEOS_BULLETINS_DIR, video.file_name))
                     except:
                         pass
                 
@@ -856,7 +1015,7 @@ def delete_worship_video(request, video_id):
 
     if (video.file_name != ''):
         try:
-            os.remove(os.path.join(VIDEO_BULLETINS_DIR, video.file_name))
+            os.remove(os.path.join(VIDEOS_BULLETINS_DIR, video.file_name))
         except:
             pass
     video.delete()

@@ -1,4 +1,4 @@
-from admin_pages.models import SiteLook, Home, About, Services, Contact, SermonsHeader, MusicHeader, VideosHeader, SEO, EmailAccount
+from admin_pages.models import SiteLook, Home, About, LeadershipHeader, Services, Contact, SermonsHeader, MusicHeader, VideosHeader, SEO, EmailAccount
 from django.contrib.auth.models import User
 from lrbc_site import settings
 import os
@@ -23,6 +23,14 @@ try:
 except:
     pass
 try:
+    os.mkdir(SITE_PAGES_DIR + 'leadership/header_image')
+except:
+    pass
+try:
+    os.mkdir(SITE_PAGES_DIR + 'leadership/leaders_images')
+except:
+    pass
+try:
     os.mkdir(SITE_PAGES_DIR + 'resources/sermons/audio/')
 except:
     pass
@@ -36,6 +44,7 @@ except:
     pass
 
 x = SiteLook(
+    id=1,
     show_home=False,
     show_about=True,
     show_sermons=True,
@@ -77,6 +86,7 @@ x = About(
     id=1,
     show_header_image=True,
     header_image_file_name='about.png',
+    header_text='',
     box1_header_text='',
     box1_content_text='',
     box1_img_file_name='',
@@ -87,6 +97,15 @@ x = About(
     delete_gallery=False,
     delete_box1_img=False,
     delete_box2_img=False
+)
+x.save()
+
+x = LeadershipHeader(
+    id=1,
+    show_header_image=True,
+    header_image_file_name=''
+    header_text='',
+    description_text=''
 )
 x.save()
 

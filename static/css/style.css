@@ -75,7 +75,7 @@ body, html {
 
 .hero-image {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../site_pages/home/bg_image/background.png");
-    height: 84%;
+    height: 80%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -183,6 +183,17 @@ body, html {
     margin-left: auto;
     padding-top: 2%;
     padding-bottom: 2%;
+}
+
+.leader-container {
+    border-radius: 5px;
+    padding: 5%;
+    background-color: rgba(234, 234, 234, 0.5);
+    
+}
+
+.card-text {
+    margin-top: 2%;
 }
 
 .contact-number {

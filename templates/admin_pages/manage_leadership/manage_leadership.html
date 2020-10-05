@@ -1,0 +1,91 @@
+{% extends "../admin_pages_base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center" style="padding: 1%;">
+    <a href="{% url 'admin_pages:admin_index' %}">
+        <button class="btn btn-outline-warning">&#60; Back to Menu</button>
+    </a>
+</div>
+
+<div class="container" style="background-color: #A1A8AD; border-radius: 5px;">
+    <h2 class="text-center" style="padding-top: 1%;">Manage Leadership Page</h2>
+
+    <div class="center-table pad-container hide-when-small shadow">
+        <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+            <a href="{% url 'admin_pages:new_leader' %}">
+                <button class="btn btn-primary">Add Leader</button>
+			</a>
+			<a class="space-left-sm" href="{% url 'admin_pages:manage_leadership_header' %}">
+                <button class="btn btn-secondary">Edit Header</button>
+            </a>
+        </div>
+        <table class="shadow" 
+            style="width: 100%; background-color: white; border-radius: 5px;"">
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+				<th>Email</th>
+				<th>Bio</th>
+				<th>Actions</th>
+            </tr>
+            {% for leader in leaders %}
+            <tr>
+				<td class="space-left-sm">{{ leader.name }}</td>
+				<td>{{ leader.position }}</td>
+				<td>{{ leader.email_addr }}</td>
+                <td>{{ leader.bio|truncatechars:65 }}</td>
+                <td>
+                    <a href="{% url 'admin_pages:edit_leader' leader.id %}">
+                        Edit
+                    </a> | 
+                    <a href="{% url 'admin_pages:delete_leader' leader.id %}"
+                        style="color: red;">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="show-when-small container">
+    {% for leader in leaders %}
+        <div class="collapse-container">
+            {{ leader.name }}
+            <span class="space-left">
+                <a href="{% url 'admin_pages:edit_leader' leader.id %}">
+                    Edit
+                </a> | 
+                <a href="{% url 'admin_pages:delete_leader' leader.id %}"
+                    style="color: red;">
+                    Delete
+                </a>
+            </span>
+        </div>
+        <div class="expand-content text-center">
+			<p>Position:      {{ leader.position }}</p>
+            <p>Email Address: {{ leader.email_addr }}</p>
+            <p>Bio:       {{ leader.bio|truncatechars:65 }}</p>
+        </div>
+    {% endfor %}
+    <br>
+</div>
+
+<script>
+    var collapse = document.getElementsByClassName("collapse-container");
+    
+    for (let i = 0; i < collapse.length; i++) {
+        collapse[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            }
+            else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+{% endblock content %}
