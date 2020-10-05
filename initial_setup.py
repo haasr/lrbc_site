@@ -107,7 +107,7 @@ x.save()
 x = LeadershipHeader(
     id=1,
     show_header_image=True,
-    header_image_file_name=''
+    header_image_file_name='',
     header_text='',
     description_text=''
 )
