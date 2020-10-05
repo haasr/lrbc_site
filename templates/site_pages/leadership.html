@@ -1,0 +1,58 @@
+{% extends "./site_pages_base.html" %}
+{% load static %}
+
+{% block page_title %}Our Leadership{% endblock page_title %}
+
+{% block content %}
+{% if leadership.show_header_image %}
+<div class="header-image"
+    style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ header_image }}');">
+    <div class="hero-container">
+        <h1 class="text-light textshadow">Leadership</h1>
+        {% if leadership.header_text != '' %}
+        <h4 class="header-text justify-content-center text-light">
+            {{ leadership.header_text }}
+        </h4>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div>
+    <h1 class="text-dark text-center">Leadership</h1>
+    {% if leadership.header_text != '' %}
+    <h4 class="text-center text-dark" style="margin-top: 2%;">
+        {{ leadership.header_text }}
+    </h4>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="center-container" 
+    style="margin-bottom: -5%;">
+    {% if leadership.description_text != '' %}
+    <div class="content-container">
+        {{ leadership.description_text|safe|linebreaksbr }}
+    </div>
+    {% endif %}
+    {% for leader in leaders %}
+    <div class="content-container content-container shadow" style="width: 100%; border: 10px solid #dbdbdb;">
+        <img src="/static/site_pages/leadership/leaders_images/{{ leader.profile_image_file_name }}"
+            style="border-radius: 5px; margin: 2%; {{ leader.profile_image_size }} {{ leader.profile_image_position }}"
+            alt="{{ leader.profile_image_alt }}">
+        <h2 class="text-dark">{{ leader.name }}</h2>
+        <h3 class="text-dark">{{ leader.position }}</h3>
+        {% if leader.email_addr %}
+            <a href="mailto:{{ leader.email_addr }}">
+                {{ leader.email_addr }}
+            </a>
+        {% endif %}
+        <div style="padding: 10px;">
+            {{ leader.bio|safe|linebreaksbr }}
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center" style="margin-top: 1%;">No leaders have been entered.</p>
+    {% endfor %}
+</div>
+
+{% endblock content %}
